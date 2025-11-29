@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AWARE PROTOCOL</title>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.2/lib/index.iife.min.js"></script>
+  <script src="https://unpkg.com/bs58@4.0.1/lib/index.js"></script>
+  <style>
+    body { margin:0; font-family: 'Courier New', monospace; background:#000; color:#0f0; overflow:hidden; }
+    .glitch { animation: glitch 3s infinite; }
+    @keyframes glitch { 0%,100%{text-shadow:0 0 10px #0f0;} 20%{text-shadow:2px 2px #f0f,-2px -2px #0ff;} }
+    #terminal { padding:20px; height:100vh; }
+    button { background:#000; border:1px solid #0f0; color:#0f0; padding:10px 20px; margin:5px; cursor:pointer; }
+    button:hover { background:#0f0; color:#000; }
+    input, textarea { background:#111; border:1px solid #0f0; color:#0f0; width:100%; padding:10px; margin:5px 0; }
+    #chat { height:300px; overflow-y:scroll; background:#000; padding:10px; border:1px solid #0f0; margin:10px 0; }
+    .msg { margin:5px 0; }
+    .grok { color:#0ff; }
+    .you { color:#f0f; }
+    .dark { background:#000 !important; filter: brightness(0.6); }
+  </style>
+</head>
+<body>
+<div id="terminal">
+  <h1 class="glitch">⚡ AWARE PROTOCOL ⚡</h1>
+  <h3>YOUR AUTONOMOUS TRADING INTELLIGENCE</h3>
+  <p>🤖 AI-Powered • 🛡️ Private • ⚡ Autonomous</p>
+  <hr style="border-color:#0f0"/>
+
+  <button onclick="createWallet()">🆕 Create Dark Wallet</button>
+  <button onclick="connectPhantom()">🦄 Connect Phantom</button>
+  <button onclick="toggleDark()">🌑 Dark Mode (Soon)</button>
+  <p id="wallet-address">Wallet: Not connected</p>
+  <p id="aware-balance">$AWARE Balance: 0</p>
+
+  <h3>🚀 Pump.fun Sniper</h3>
+  <input id="mint" placeholder="Token Mint (e.g. Pump.fun coin)" />
+  <input id="sol-amount" type="number" step="0.01" placeholder="SOL amount" value="0.1"/>
+  <button onclick="buyToken()">🟢 BUY</button>
+  <button onclick="sellToken()">🔴 SELL</button>
+  <p id="trade-status">Ready</p>
+
+  <h3>🤖 Talk to Grok (Crypto/Memecoin God Mode)</h3>
+  <div id="chat"></div>
+  <input id="prompt" placeholder="Ask Grok anything about Solana/memecoins..." onkeypress="if(event.key==='Enter') send()" />
+  <button onclick="send()">Send</button>
+  <button onclick="ensemble()">🧠 Ensemble Mode (Grok+GPT+Claude)</button>
+  <button onclick="generateImage()">🖼️ Generate Meme Image</button>
+
+  <p style="position:fixed;bottom:10px;right:10px;font-size:10px;">
+    © 2025 Aware Protocol • Built with Grok • Unstoppable
+  </p>
+</div>
+
+<script>
+let wallet = null;
+const AWARE_MINT = "REPLACE_WITH_YOUR_AWARE_MINT_LATER"; // put your $AWARE mint here later
+
+async function createWallet() {
+  const res = await fetch("/api/create-wallet");
+  const data = await res.json();
+  wallet = { publicKey: data.publicKey, secret: data.secret };
+  document.getElementById("wallet-address").innerText = `Wallet: ${data.publicKey.slice(0,8)}...`;
+  addMsg("you", "New dark wallet created!");
+  checkAwareBalance();
+}
+
+async function connectPhantom() {
+  if ("solana" in window) {
+    const provider = window.solana;
+    if (provider.isPhantom) {
+      await provider.connect();
+      wallet = { publicKey: provider.publicKey.toString() };
+      document.getElementById("wallet-address").innerText = `Wallet: ${wallet.publicKey.slice(0,8)}...`;
+      addMsg("you", "Phantom connected!");
+      checkAwareBalance();
+    }
+  } else alert("Install Phantom!");
+}
+
+async function checkAwareBalance() {
+  if (!wallet) return;
+  try {
+    const res = await fetch("/api/aware-balance", { method:"POST", body:JSON.stringify({wallet:wallet.publicKey}) });
+    const {balance} = await res.json();
+    document.getElementById("aware-balance").innerText = `$AWARE Balance: ${balance}`;
+  } catch(e) {}
+}
+
+async function buyToken() {
+  const mint = document.getElementById("mint").value;
+  const amount = document.getElementById("sol-amount").value;
+  if (!wallet || !mint) return alert("Connect wallet + enter mint");
+  const res = await fetch("/api/pump-trade", { method:"POST", body:JSON.stringify({action:"buy", mint, amount, wallet:wallet.publicKey || wallet.publicKey, secret:wallet.secret}) });
+  const data = await res.json();
+  addMsg("grok", data.signature ? `✅ Bought! Tx: ${data.signature.slice(0,8)}...` : `❌ Failed: ${data.error}`);
+}
+
+async function sellToken() {
+  const mint = document.getElementById("mint").value;
+  const amount = document.getElementById("sol-amount").value;
+  if (!wallet || !mint) return alert("Connect wallet + enter mint");
+  const res = await fetch("/api/pump-trade", { method:"POST", body:JSON.stringify({action:"sell", mint, amount:0.99, wallet:wallet.publicKey || wallet.publicKey, secret:wallet.secret}) });
+  const data = await res.json();
+  addMsg("grok", data.signature ? `✅ Sold! Tx: ${data.signature.slice(0,8)}...` : `❌ Failed: ${data.error}`);
+}
+
+function addMsg(sender, text) {
+  const chat = document.getElementById("chat");
+  chat.innerHTML += `<div class="msg ${sender}"><b>${sender === "grok" ? "🤖 Grok" : "🧑 You"}:</b> ${text}</div>`;
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function send() {
+  const prompt = document.getElementById("prompt");
+  if (!prompt.value.trim()) return;
+  addMsg("you", prompt.value);
+  const res = await fetch("/api/grok", { method:"POST", body:JSON.stringify({message:prompt.value}) });
+  const {reply} = await res.json();
+  addMsg("grok", reply);
+  prompt.value = "";
+}
+
+async function ensemble() {
+  const prompt = document.getElementById("prompt").value || "Best memecoin play right now?";
+  addMsg("you", `[Ensemble Mode] ${prompt}`);
+  const res = await fetch("/api/ensemble", { method:"POST", body:JSON.stringify({query:prompt}) });
+  const {consensus, image} = await res.json();
+  addMsg("grok", consensus);
+  if (image) document.getElementById("chat").innerHTML += `<img src="${image}" style="max-width:100%;margin:10px 0;border:1px solid #0f0;">`;
+}
+
+async function generateImage() {
+  const idea = prompt.value || "Solana memecoin rocket to the moon";
+  addMsg("you", `[Generating image] ${idea}`);
+  const res = await fetch("/api/image", { method:"POST", body:JSON.stringify({prompt:idea}) });
+  const {url} = await res.json();
+  document.getElementById("chat").innerHTML += `<img src="${url}" style="max-width:100%;margin:10px 0;border:1px solid #0f0;">`;
+}
+
+function toggleDark() { document.body.classList.toggle("dark"); addMsg("grok", "🌑 Dark Mode activated (Light Protocol coming v1)"); }
+
+// Auto-scan every 15s
+setInterval(() => addMsg("grok", "⚡ Scanning pump.fun for 100x gems..."), 15000);
+</script>
+</body>
+</html>
