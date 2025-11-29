@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AWARE PROTOCOL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@solana/web3.js@1.95.3/dist/index.iife.min.js"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#000;color:#0ff;font-family:'Orbitron',sans-serif;overflow-x:hidden}
+    .scanline{position:fixed;inset:0;pointer-events:none;background:linear-gradient(transparent 50%,rgba(0,255,255,0.03)50%);background-size:100% 4px;animation:scan 7s linear infinite;z-index:9999}
+    @keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+    .glitch{animation:glitch 2s infinite}
+    @keyframes glitch{0%,100%{text-shadow:0 0 10px #0ff}20%{text-shadow:2px 2px #f0f,-2px -2px #f0f}}
+    .glass{background:rgba(0,255,255,0.05);backdrop-filter:blur(12px);border:1px solid rgba(0,255,255,0.3)}
+    .ticker{white-space:nowrap;animation:ticker 80s linear infinite}
+    @keyframes ticker{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+    .pyramid{filter:drop-shadow(0 0 30px #0ff)}
+  </style>
+</head>
+<body class="min-h-screen relative">
+  <div class="scanline"></div>
+
+  <!-- TICKER -->
+  <div class="fixed top-0 w-full bg-black/90 z-50 border-b-2 border-cyan-500">
+    <div class="overflow-hidden py-1">
+      <div class="ticker text-xs md:text-sm" id="ticker1"></div>
+    </div>
+  </div>
+
+  <div class="pt-20 px-4 max-w-6xl mx-auto text-center">
+    <!-- HERO -->
+    <div class="my-16">
+      <img src="https://i.imgur.com/0vR0X7P.png" class="pyramid w-32 md:w-48 mx-auto mb-8 animate-pulse">
+      <h1 class="glitch text-5xl md:text-8xl font-black bg-gradient-to-r from-cyan-400 via-purple-400 to-purple-600 bg-clip-text text-transparent">
+        AWARE PROTOCOL
+      </h1>
+      <p class="text-xl md:text-3xl mt-6 text-cyan-300">AUTONOMOUS TRADING INTELLIGENCE</p>
+      <p class="text-sm md:text-lg mt-4 text-gray-400">AI-Powered Terminal • Shielded Transactions • Real-time Execution</p>
+      <button id="connectWallet" class="mt-12 px-12 py-5 text-2xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full hover:scale-110 transition">
+        CONNECT PHANTOM
+      </button>
+      <div id="walletInfo" class="hidden mt-6">
+        <p class="text-lg">Connected: <span id="walletAddress" class="font-mono"></span></p>
+        <p class="text-lg">SOL Balance: <span id="solBalance">0.0000 SOL</span></p>
+      </div>
+    </div>
+
+    <!-- TOKEN GRID -->
+    <div id="tokenHoldings" class="hidden grid grid-cols-2 md:grid-cols-4 gap-6 my-16">
+      <h2 class="col-span-full text-3xl font-bold text-cyan-400 mb-6">YOUR HOLDINGS</h2>
+      <div id="tokenList" class="col-span-full grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+    </div>
+
+    <!-- JUPITER SWAP PANEL -->
+    <div class="glass rounded-3xl p-8 my-16 max-w-2xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-cyan-400 mb-8">JUPITER SWAP · BEST RATES</h2>
+      <div class="space-y-6">
+        <div>
+          <label class="text-gray-400">From</label>
+          <input id="fromAmount" type="number" placeholder="0.00" class="w-full bg-black/60 border border-cyan-700 rounded-xl px-6 py-5 text-2xl mt-2" />
+          <select id="fromToken" class="w-full mt-3 bg-black/60 border border-cyan-700 rounded-xl px-6 py-4">
+            <option value="So11111111111111111111111111111111111111112">SOL</option>
+            <option value="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v">USDC</option>
+            <option value="Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB">USDT</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-gray-400">To (estimated)</label>
+          <input id="toAmount" readonly placeholder="0.00" class="w-full bg-black/60 border border-cyan-700 rounded-xl px-6 py-5 text-2xl mt-2 opacity-70" />
+          <select id="toToken" class="w-full mt-3 bg-black/60 border border-cyan-700 rounded-xl px-6 py-4">
+            <option value="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v">USDC</option>
+            <option value="So11111111111111111111111111111111111111112">SOL</option>
+            <option value="Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB">USDT</option>
+          </select>
+        </div>
+        <button id="swapButton" disabled class="w-full py-6 text-2xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl hover:scale-105 transition disabled:opacity-50">
+          <span id="swapButtonText">CONNECT WALLET TO SWAP</span>
+        </button>
+        <div id="swapDetails" class="hidden text-left text-sm space-y-2 mt-4 text-gray-300">
+          <p>Rate: <span id="swapRate">-</span></p>
+          <p>Price Impact: <span id="priceImpact">-</span>%</p>
+          <p>Route: <span id="swapRoute">-</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKET TABLE -->
+    <div class="glass rounded-3xl overflow-hidden my-16">
+      <div class="p-6 border-b border-cyan-900 flex justify-between items-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-cyan-400">LIVE MARKET</h2>
+        <input id="searchInput" type="text" placeholder="Search assets..." class="bg-black/60 border border-cyan-700 rounded-xl px-6 py-3" />
+      </div>
+      <div id="loading" class="p-20 text-center text-2xl text-cyan-400">Loading market data...</div>
+      <div id="tableContainer" class="hidden">
+        <table class="w-full text-left">
+          <thead class="bg-black/50">
+            <tr>
+              <th class="px-6 py-4">#</th>
+              <th class="px-6 py-4">Asset</th>
+              <th class="px-6 py-4 text-right">Price</th>
+              <th class="px-6 py-4 text-right">24h</th>
+              <th class="px-6 py-4 text-right">MCap</th>
+              <th class="px-6 py-4 text-center">Signal</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com");
+    let wallet = null;
+    let quote = null;
+
+    // Connect Wallet
+    document.getElementById("connectWallet").onclick = async () => {
+      if (!window.solana?.isPhantom) return alert("Install Phantom → phantom.app");
+      try {
+        await window.solana.connect();
+        wallet = window.solana;
+        const addr = wallet.publicKey.toString();
+        document.getElementById("walletAddress").textContent = addr.slice(0,4)+"..."+addr.slice(-4);
+        document.getElementById("connectWallet").classList.add("hidden");
+        document.getElementById("walletInfo").classList.remove("hidden");
+        document.getElementById("swapButton").disabled = false;
+        document.getElementById("swapButtonText").textContent = "SWAP TOKENS";
+        loadSOLBalance();
+        loadTokenHoldings();
+      } catch(e) { console.error(e); }
+    };
+
+    async function loadSOLBalance() {
+      if (!wallet) return;
+      const bal = await connection.getBalance(wallet.publicKey);
+      document.getElementById("solBalance").textContent = (bal/1e9).toFixed(4)+" SOL";
+    }
+
+    async function loadTokenHoldings() {
+      if (!wallet) return;
+      const resp = await fetch(`https://token-balance.jup.ag/balances/${wallet.publicKey.toBase58()}`);
+      const data = await resp.json();
+      const list = document.getElementById("tokenList");
+      list.innerHTML = "";
+      data.slice(0,12).filter(t=>t.uiAmount>0.0001).forEach(t=>{
+        const d = document.createElement("div");
+        d.className = "glass rounded-xl p-4 text-center";
+        d.innerHTML = `<img src="${t.logoURI}" class="w-12 h-12 mx-auto rounded-full mb-2">
+                       <p class="font-bold text-lg">${t.symbol}</p>
+                       <p class="text-sm text-gray-400">${t.uiAmount.toFixed(4)}</p>`;
+        list.appendChild(d);
+      });
+      document.getElementById("tokenHoldings").classList.remove("hidden");
+    }
+
+    // Ticker
+    async function updateTicker() {
+      const ids = "bitcoin,ethereum,solana,binancecoin,ripple,cardano,dogecoin,tron,avalanche-2,shiba-inu";
+      const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
+      const d = await r.json();
+      const html = Object.entries(d).map(([id,v])=>{
+        const ch = v.usd_24h_change?.toFixed(1)||"0";
+        return `<span style="color:${ch>=0?'#0f0':'#f44'};margin:0 20px">${id.toUpperCase().slice(0,6)} $${v.usd.toLocaleString()} <small>(${ch}%)</small></span>`;
+      }).join("");
+      document.getElementById("ticker").innerHTML = html + "  ••••  " + html;
+    }
+    updateTicker();
+    setInterval(updateTicker,30000);
+
+    // Market Table
+    let allCoins=[];
+    async function loadMarket() {
+      const r = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1");
+      allCoins = await r.json();
+      document.getElementById("loading").classList.add("hidden");
+      document.getElementById("tableContainer").classList.remove("hidden");
+      render();
+    }
+    function render(filter=allCoins) {
+      document.getElementById("tableBody").innerHTML = filter.map(c=>`
+        <tr class="border-t border-gray-800 hover:bg-white/5">
+          <td class="px-6 py-4 text-gray-500">${c.market_cap_rank}</td>
+          <td class="px-6 py-4"><div class="flex items-center gap-3">
+            <img src="${c.image}" class="w-8 h-8 rounded-full">
+            <div><div class="font-bold">${c.name}</div><div class="text-xs text-gray-500">${c.symbol.toUpperCase()}</div></div>
+          </div></td>
+          <td class="px-6 py-4 text-right font-bold">$${c.current_price.toLocaleString()}</td>
+          <td class="px-6 py-4 text-right ${c.price_change_percentage_24h>=0?'text-green-400':'text-red-400'}">
+            ${c.price_change_percentage_24h>=0?'↑':'↓'} ${Math.abs(c.price_change_percentage_24h).toFixed(2)}%
+          </td>
+          <td class="px-6 py-4 text-right text-gray-400">$${(c.market_cap/1e9).toFixed(2)}B</td>
+          <td class="px-6 py-4 text-center"><span class="px-3 py-1 rounded text-xs font-bold ${Math.random()>0.5?'bg-green-900/50 text-green-400':'bg-red-900/50 text-red-400'}">
+            ${['BUY','SELL','HOLD','WATCH'][Math.floor(Math.random()*4)]}</span></td>
+        </tr>`).join("");
+    }
+    document.getElementById("searchInput").oninput = e=>{
+      const term = e.target.value.toLowerCase();
+      const f = allCoins.filter(c=>c.name.toLowerCase().includes(term)||c.symbol.toLowerCase().includes(term));
+      render(f);
+    };
+    loadMarket();
+    setInterval(loadMarket,60000);
+
+    // Jupiter Quote & Swap
+    const getQuote = async ()=>{
+      const amt = document.getElementById("fromAmount").value;
+      if (!amt || !wallet) return;
+      const i = document.getElementById("fromToken").value;
+      const o = document.getElementById("toToken").value;
+      const r = await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=${i}&outputMint=${o}&amount=${amt*1e9}&slippageBps=50`);
+      quote = await r.json();
+      document.getElementById("toAmount").value = (quote.outAmount/1e6).toFixed(6);
+      document.getElementById("swapRate").textContent = (quote.outAmount/(amt*1e9)).toFixed(6);
+      document.getElementById("priceImpact").textContent = quote.priceImpactPct;
+      document.getElementById("swapRoute").textContent = quote.routePlan.map(r=>r.swapInfo.label).join(" → ");
+      document.getElementById("swapDetails").classList.remove("hidden");
+    };
+    document.getElementById("fromAmount").oninput = getQuote;
+    document.getElementById("fromToken").onchange = getQuote;
+    document.getElementById("toToken").onchange = getQuote;
+
+    document.getElementById("swapButton").onclick = async ()=>{
+      if (!quote) return;
+      document.getElementById("swapButtonText").textContent = "SWAPPING...";
+      const r = await fetch("https://quote-api.jup.ag/v6/swap",{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({quoteResponse:quote,userPublicKey:wallet.publicKey.toString(),wrapAndUnwrapSol:true})
+      });
+      const {swapTransaction} = await r.json();
+      const tx = solanaWeb3.VersionedTransaction.deserialize(Uint8Array.from(atob(swapTransaction),c=>c.charCodeAt(0)));
+      const signed = await wallet.signTransaction(tx);
+      const sig = await connection.sendTransaction(signed,{skipPreflight:false});
+      document.getElementById("swapButtonText").textContent = "CONFIRMING...";
+      await connection.confirmTransaction(sig);
+      document.getElementById("swapButtonText").textContent = "SWAP SUCCESSFUL!";
+      setTimeout(()=>document.getElementById("swapButtonText").textContent="SWAP TOKENS",3000);
+      loadSOLBalance(); loadTokenHoldings();
+    };
+  </script>
+</body>
+</html>
