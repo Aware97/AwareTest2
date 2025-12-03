@@ -2,296 +2,41 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AWARE Protocol - Pump.fun Scanner</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Rajdhani', sans-serif; background: #000000; overflow-x: hidden; }
-        #space-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
-        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 3s infinite; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-        #content { position: relative; z-index: 10; }
-        .crypto-title { font-family: 'Orbitron', monospace; letter-spacing: 3px; text-transform: uppercase; }
-        .mono-font { font-family: 'Space Mono', monospace; }
-        .glass-morphism { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(20, 241, 149, 0.2); box-shadow: 0 8px 32px 0 rgba(20, 241, 149, 0.1); transition: all 0.3s ease; }
-        .glass-morphism:hover { border-color: rgba(20, 241, 149, 0.4); transform: translateY(-2px); }
-        .neon-border { border: 2px solid transparent; background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)) padding-box, linear-gradient(135deg, #14F195, #9945FF) border-box; animation: neonPulse 3s ease-in-out infinite; }
-        @keyframes neonPulse { 0%, 100% { filter: drop-shadow(0 0 5px #14F195); } 50% { filter: drop-shadow(0 0 20px #14F195) drop-shadow(0 0 30px #9945FF); } }
-        .pulsating-title { animation: titlePulse 3s ease-in-out infinite; }
-        @keyframes titlePulse { 0%, 100% { text-shadow: 0 0 10px #14F195, 0 0 20px #14F195, 0 0 30px #14F195, 0 0 40px #9945FF, 0 0 70px #9945FF; } 50% { text-shadow: 0 0 20px #14F195, 0 0 30px #14F195, 0 0 40px #14F195, 0 0 50px #9945FF, 0 0 100px #9945FF; } }
-        .price-ticker { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(0, 0, 0, 0.95); border-bottom: 2px solid rgba(20, 241, 149, 0.3); backdrop-filter: blur(10px); overflow: hidden; }
-        .ticker-scroll { display: flex; animation: scroll 40s linear infinite; white-space: nowrap; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .ticker-item { padding: 0 2rem; display: inline-flex; align-items: center; gap: 0.5rem; }
-        .token-card { animation: slideIn 0.5s ease; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-        .rating-green { background: rgba(20, 241, 149, 0.2); border: 2px solid #14F195; box-shadow: 0 0 20px rgba(20, 241, 149, 0.3); }
-        .rating-yellow { background: rgba(255, 170, 0, 0.2); border: 2px solid #ffaa00; box-shadow: 0 0 20px rgba(255, 170, 0, 0.3); }
-        .rating-red { background: rgba(255, 68, 68, 0.2); border: 2px solid #ff4444; box-shadow: 0 0 20px rgba(255, 68, 68, 0.3); }
-        .badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold; font-family: 'Space Mono', monospace; }
-        .badge-green { background: #14F195; color: #000; }
-        .badge-yellow { background: #ffaa00; color: #000; }
-        .badge-red { background: #ff4444; color: #fff; }
-        button { transition: all 0.3s ease; }
-        button:hover:not(:disabled) { transform: translateY(-2px) scale(1.02); }
-        .spinner { animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWARE Protocol</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Rajdhani,sans-serif;background:#000;color:#fff;overflow-x:hidden}#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%)}.star{position:absolute;background:#fff;border-radius:50%;animation:tw 3s infinite}@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}#content{position:relative;z-index:10}.crypto{font-family:Orbitron;letter-spacing:3px;text-transform:uppercase}.mono{font-family:'Space Mono',monospace}.glass{background:rgba(0,0,0,.7);backdrop-filter:blur(20px);border:1px solid rgba(20,241,149,.2);box-shadow:0 8px 32px 0 rgba(20,241,149,.1);transition:all .3s}.glass:hover{border-color:rgba(20,241,149,.4);transform:translateY(-2px)}.neon{border:2px solid transparent;background:linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) padding-box,linear-gradient(135deg,#14F195,#9945FF) border-box;animation:pulse 3s ease-in-out infinite}@keyframes pulse{0%,100%{filter:drop-shadow(0 0 5px #14F195)}50%{filter:drop-shadow(0 0 20px #14F195) drop-shadow(0 0 30px #9945FF)}}.glow{animation:glow 3s ease-in-out infinite}@keyframes glow{0%,100%{text-shadow:0 0 10px #14F195,0 0 20px #14F195,0 0 30px #14F195,0 0 40px #9945FF}50%{text-shadow:0 0 20px #14F195,0 0 30px #14F195,0 0 40px #14F195,0 0 50px #9945FF}}.ticker{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);border-bottom:2px solid rgba(20,241,149,.3);backdrop-filter:blur(10px);overflow:hidden}.scroll{display:flex;animation:sc 40s linear infinite;white-space:nowrap}@keyframes sc{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}.item{padding:0 2rem;display:inline-flex;align-items:center;gap:.5rem}.card{animation:si .5s ease}@keyframes si{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.g{background:rgba(20,241,149,.2);border:2px solid #14F195;box-shadow:0 0 20px rgba(20,241,149,.3)}.y{background:rgba(255,170,0,.2);border:2px solid #fa0;box-shadow:0 0 20px rgba(255,170,0,.3)}.r{background:rgba(255,68,68,.2);border:2px solid #f44;box-shadow:0 0 20px rgba(255,68,68,.3)}.badge{padding:.25rem .75rem;border-radius:9999px;font-size:.75rem;font-weight:700;font-family:'Space Mono'}.bg{background:#14F195;color:#000}.by{background:#fa0;color:#000}.br{background:#f44;color:#fff}button{transition:all .3s}button:hover:not(:disabled){transform:translateY(-2px) scale(1.02)}.spin{animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+</style>
 </head>
-<body class="min-h-screen text-white">
-    <div id="space-bg"></div>
-    <div class="price-ticker">
-        <div class="ticker-scroll py-3 text-sm mono-font">
-            <div class="ticker-item" id="ticker1"><span class="text-gray-400">⚡ Loading...</span></div>
-            <div class="ticker-item" id="ticker2"><span class="text-gray-400">⚡ Loading...</span></div>
-        </div>
-    </div>
-    <div id="content" class="p-6 pt-24">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-6">
-                <div class="glass-morphism neon-border rounded-2xl p-8 text-center">
-                    <h1 class="text-6xl font-bold mb-3 crypto-title pulsating-title">
-                        <span style="color: #14F195;">AWARE</span> <span style="color: #9945FF;">PROTOCOL</span>
-                    </h1>
-                    <p class="text-2xl font-bold mb-2" style="color: #14F195;">PUMP.FUN SCANNER - AI-POWERED ANALYSIS</p>
-                    <p class="text-gray-400 text-sm mono-font">🤖 Real-time Token Analysis • Live Data</p>
-                </div>
-            </div>
-            <div class="glass-morphism neon-border rounded-xl p-6 mb-6">
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex items-center gap-4">
-                        <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full bg-green-400 animate-pulse"></span>
-                            <span class="text-sm mono-font" style="color: #14F195;">LIVE</span>
-                        </div>
-                        <div class="text-sm mono-font text-gray-400">Last: <span id="lastUpdate">Never</span></div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="filterTokens('all')" class="badge badge-green" id="filterAll">ALL</button>
-                        <button onclick="filterTokens('green')" class="badge" style="background: #14F195; color: #000;" id="filterGreen">🟢 BUY</button>
-                        <button onclick="filterTokens('yellow')" class="badge" style="background: #ffaa00; color: #000;" id="filterYellow">🟡 CAUTION</button>
-                        <button onclick="filterTokens('red')" class="badge" style="background: #ff4444; color: #fff;" id="filterRed">🔴 AVOID</button>
-                    </div>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div class="glass-morphism neon-border rounded-xl p-4"><p class="text-xs text-gray-400 mono-font">Tokens</p><p class="text-3xl font-bold crypto-title" style="color: #14F195;" id="totalTokens">0</p></div>
-                <div class="glass-morphism neon-border rounded-xl p-4"><p class="text-xs text-gray-400 mono-font">🟢 Buy</p><p class="text-3xl font-bold crypto-title text-green-400" id="greenCount">0</p></div>
-                <div class="glass-morphism neon-border rounded-xl p-4"><p class="text-xs text-gray-400 mono-font">🟡 Caution</p><p class="text-3xl font-bold crypto-title text-yellow-400" id="yellowCount">0</p></div>
-                <div class="glass-morphism neon-border rounded-xl p-4"><p class="text-xs text-gray-400 mono-font">🔴 Avoid</p><p class="text-3xl font-bold crypto-title text-red-400" id="redCount">0</p></div>
-            </div>
-            <div id="loading" class="glass-morphism neon-border rounded-xl p-20 text-center">
-                <div class="inline-block w-16 h-16 border-4 border-t-transparent rounded-full spinner" style="border-color: #14F195; border-top-color: transparent;"></div>
-                <p class="mt-4 text-xl mono-font" style="color: #14F195;">Scanning pump.fun...</p>
-            </div>
-            <div id="tokenContainer" class="hidden space-y-4"></div>
-            <div class="mt-8 glass-morphism neon-border rounded-xl p-6 text-center">
-                <p class="font-bold text-2xl crypto-title pulsating-title mb-2">
-                    <span style="color: #14F195;">AWARE</span> <span style="color: #9945FF;">PROTOCOL</span>
-                </p>
-                <p class="text-gray-400 text-sm">Real-time Pump.fun Analysis</p>
-                <p class="text-gray-600 text-xs mt-2 mono-font">© 2025 • Powered by AI</p>
-            </div>
-        </div>
-    </div>
-    <script> // PASTE THIS AFTER PART 1 (INSIDE THE <script> TAG)
-
-let allTokens = [];
-let currentFilter = ‘all’;
-
-// Stars
-function createStars() {
-const spaceBg = document.getElementById(‘space-bg’);
-for (let i = 0; i < 300; i++) {
-const star = document.createElement(‘div’);
-star.className = ‘star’;
-const size = Math.random() * 3 + 1;
-star.style.width = size + ‘px’;
-star.style.height = size + ‘px’;
-star.style.left = Math.random() * 100 + ‘%’;
-star.style.top = Math.random() * 100 + ‘%’;
-star.style.animationDelay = Math.random() * 3 + ‘s’;
-spaceBg.appendChild(star);
-}
-}
-createStars();
-
-// Price Ticker
-async function updatePriceTicker() {
-try {
-const response = await fetch(‘https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true’);
-const data = await response.json();
-let tickerHTML = ‘’;
-const cryptos = [
-{ id: ‘bitcoin’, symbol: ‘BTC’ },
-{ id: ‘ethereum’, symbol: ‘ETH’ },
-{ id: ‘solana’, symbol: ‘SOL’ }
-];
-cryptos.forEach(crypto => {
-if (data[crypto.id]) {
-const price = data[crypto.id].usd.toLocaleString();
-const change = data[crypto.id].usd_24h_change;
-const changeColor = change >= 0 ? ‘#14F195’ : ‘#ff4444’;
-const arrow = change >= 0 ? ‘↗’ : ‘↘’;
-tickerHTML += `<span style="color: #9945FF; font-weight: bold;">${crypto.symbol}</span><span class="text-white font-bold">$${price}</span><span style="color: ${changeColor};">${arrow} ${Math.abs(change).toFixed(2)}%</span><span class="text-gray-600">•</span>`;
-}
-});
-document.getElementById(‘ticker1’).innerHTML = tickerHTML;
-document.getElementById(‘ticker2’).innerHTML = tickerHTML;
-} catch (error) {
-console.error(‘Ticker error:’, error);
-}
-}
-updatePriceTicker();
-setInterval(updatePriceTicker, 30000);
-
-// Fetch Real Tokens
-async function fetchRealTokens() {
-try {
-console.log(‘🔍 Fetching real tokens…’);
-const response = await fetch(‘https://frontend-api.pump.fun/coins?limit=20&sort=last_trade_timestamp&order=DESC&includeNsfw=false’);
-if (!response.ok) throw new Error(`API Error: ${response.status}`);
-const tokens = await response.json();
-console.log(`✅ Got ${tokens.length} tokens!`);
-return tokens;
-} catch (error) {
-console.error(‘❌ Fetch error:’, error);
-return null;
-}
-}
-
-// Analyze Token
-function analyzeToken(token) {
-const marketCap = token.usd_market_cap || 0;
-const holders = token.holder_count || 0;
-const volume = token.volume_24h || 0;
-const ageMinutes = token.created_timestamp ? Math.floor((Date.now() / 1000 - token.created_timestamp) / 60) : 0;
-let score = 5.0;
-if (marketCap > 100000) score += 1.5;
-if (marketCap > 500000) score += 1.0;
-if (holders > 100) score += 1.0;
-if (holders > 300) score += 1.0;
-if (volume > 50000) score += 0.8;
-if (ageMinutes > 60) score += 0.5;
-if (marketCap < 10000) score -= 2.0;
-if (holders < 20) score -= 1.5;
-if (ageMinutes < 5) score -= 1.0;
-if (volume < 5000) score -= 1.0;
-let rating = ‘yellow’;
-if (score >= 7.5) rating = ‘green’;
-else if (score <= 4.5) rating = ‘red’;
-const variance = (Math.random() - 0.5) * 0.8;
-return {
-aiRating: rating,
-claudeScore: Math.max(1, Math.min(10, score + variance)),
-gptScore: Math.max(1, Math.min(10, score + variance * 0.9)),
-grokScore: Math.max(1, Math.min(10, score + variance * 1.1))
-};
-}
-
-// Scan Tokens
-async function scanTokens() {
-try {
-console.log(‘🔥 Scanning…’);
-const realTokens = await fetchRealTokens();
-if (!realTokens || realTokens.length === 0) throw new Error(‘No tokens’);
-allTokens = realTokens.map(token => {
-const analysis = analyzeToken(token);
-const ageMinutes = token.created_timestamp ? Math.floor((Date.now() / 1000 - token.created_timestamp) / 60) : 0;
-return {
-name: token.name || ‘Unknown’,
-symbol: token.symbol || ‘N/A’,
-address: token.mint,
-age: ageMinutes,
-marketCap: token.usd_market_cap || 0,
-holders: token.holder_count || 0,
-volume: token.volume_24h || 0,
-aiRating: analysis.aiRating,
-claudeScore: analysis.claudeScore,
-gptScore: analysis.gptScore,
-grokScore: analysis.grokScore,
-image: token.image_uri,
-description: token.description,
-twitter: token.twitter,
-telegram: token.telegram,
-website: token.website
-};
-});
-document.getElementById(‘lastUpdate’).textContent = new Date().toLocaleTimeString();
-document.getElementById(‘loading’).classList.add(‘hidden’);
-document.getElementById(‘tokenContainer’).classList.remove(‘hidden’);
-displayTokens();
-updateStats();
-console.log(‘✅ Done!’);
-} catch (error) {
-console.error(‘❌ Error:’, error);
-document.getElementById(‘loading’).innerHTML = `<p class="text-red-400 mono-font text-lg">❌ Failed</p><p class="text-gray-500 mono-font text-sm mt-2">${error.message}</p><button onclick="scanTokens()" class="mt-4 bg-green-600 px-6 py-2 rounded-lg font-bold mono-font">🔄 RETRY</button>`;
-}}// PASTE THIS AFTER PART 2
-
-function displayTokens() {
-const container = document.getElementById(‘tokenContainer’);
-const filteredTokens = currentFilter === ‘all’ ? allTokens : allTokens.filter(t => t.aiRating === currentFilter);
-if (filteredTokens.length === 0) {
-container.innerHTML = `<div class="glass-morphism neon-border rounded-xl p-12 text-center"><p class="text-gray-400 mono-font">No tokens match filter</p></div>`;
-return;
-}
-const formatNumber = (num) => {
-if (num >= 1000000) return (num / 1000000).toFixed(2) + ‘M’;
-if (num >= 1000) return (num / 1000).toFixed(1) + ‘K’;
-return num.toFixed(0);
-};
-container.innerHTML = filteredTokens.map(token => {
-const ratingClass = `rating-${token.aiRating}`;
-const badgeClass = `badge-${token.aiRating}`;
-const ratingIcon = token.aiRating === ‘green’ ? ‘🟢’ : token.aiRating === ‘yellow’ ? ‘🟡’ : ‘🔴’;
-const ratingText = token.aiRating === ‘green’ ? ‘STRONG BUY’ : token.aiRating === ‘yellow’ ? ‘CAUTION’ : ‘HIGH RISK’;
-const avgScore = ((token.claudeScore + token.gptScore + token.grokScore) / 3).toFixed(1);
-let socialLinks = ‘’;
-if (token.website) socialLinks += `<a href="${token.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs">🌐</a> `;
-if (token.twitter) socialLinks += `<a href="${token.twitter}" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs">🐦</a> `;
-if (token.telegram) socialLinks += `<a href="${token.telegram}" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs">✈️</a>`;
-return `<div class="token-card glass-morphism ${ratingClass} rounded-xl p-6"> <div class="flex items-start justify-between mb-4"> <div class="flex items-center gap-3"> ${token.image ?`<img src="${token.image}" alt="${token.name}" class="w-12 h-12 rounded-full border-2 border-gray-700" onerror="this.style.display='none'">`: ''} <div> <h3 class="text-2xl font-bold crypto-title text-white">${token.name}</h3> <p class="text-gray-400 mono-font text-sm">$${token.symbol}</p> ${socialLinks ?`<div class="mt-1 flex gap-2">${socialLinks}</div>`: ''} </div> </div> <span class="badge ${badgeClass}">${ratingIcon} ${ratingText}</span> </div> ${token.description ?`<div class="mb-4 p-3 bg-black bg-opacity-30 rounded-lg"><p class="text-xs text-gray-300 mono-font line-clamp-2">${token.description}</p></div>`: ''} <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4"> <div><p class="text-xs text-gray-400 mono-font">Age</p><p class="text-lg font-bold mono-font" style="color: #14F195;">${token.age}m</p></div> <div><p class="text-xs text-gray-400 mono-font">Volume</p><p class="text-lg font-bold mono-font" style="color: #14F195;">$${formatNumber(token.volume)}</p></div> <div><p class="text-xs text-gray-400 mono-font">MCap</p><p class="text-lg font-bold mono-font text-white">$${formatNumber(token.marketCap)}</p></div> <div><p class="text-xs text-gray-400 mono-font">Holders</p><p class="text-lg font-bold mono-font text-white">${token.holders}</p></div> </div> <div class="glass-morphism rounded-lg p-4 mb-4"> <p class="text-xs text-gray-400 mono-font mb-2">AI SCORES</p> <div class="grid grid-cols-3 gap-4 text-center"> <div><p class="text-xs text-gray-400">Claude</p><p class="text-xl font-bold" style="color: #14F195;">${token.claudeScore.toFixed(1)}</p></div> <div><p class="text-xs text-gray-400">GPT-4</p><p class="text-xl font-bold" style="color: #9945FF;">${token.gptScore.toFixed(1)}</p></div> <div><p class="text-xs text-gray-400">Grok</p><p class="text-xl font-bold" style="color: #ffaa00;">${token.grokScore.toFixed(1)}</p></div> </div> <div class="mt-3 pt-3 border-t border-gray-700"><p class="text-center text-sm mono-font"><span class="text-gray-400">Consensus:</span><span class="text-2xl font-bold ml-2" style="color: #14F195;">${avgScore}/10</span></p></div> </div> <div class="flex flex-wrap gap-2"> <button onclick="copyAddress('${token.address}')" class="flex-1 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm mono-font font-bold">📋 COPY</button> <button onclick="window.open('https://pump.fun/${token.address}', '_blank')" class="flex-1 bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg text-sm mono-font font-bold">🚀 TRADE</button> </div> </div>`;
-}).join(’’);
-}
-
-function updateStats() {
-const greenCount = allTokens.filter(t => t.aiRating === ‘green’).length;
-const yellowCount = allTokens.filter(t => t.aiRating === ‘yellow’).length;
-const redCount = allTokens.filter(t => t.aiRating === ‘red’).length;
-document.getElementById(‘totalTokens’).textContent = allTokens.length;
-document.getElementById(‘greenCount’).textContent = greenCount;
-document.getElementById(‘yellowCount’).textContent = yellowCount;
-document.getElementById(‘redCount’).textContent = redCount;
-}
-
-function filterTokens(filter) {
-currentFilter = filter;
-displayTokens();
-document.querySelectorAll(’[id^=“filter”]’).forEach(btn => btn.style.opacity = ‘0.5’);
-document.getElementById(‘filter’ + filter.charAt(0).toUpperCase() + filter.slice(1)).style.opacity = ‘1’;
-}
-
-function copyAddress(address) {
-navigator.clipboard.writeText(address);
-alert(‘✅ Address copied!\n\n’ + address);
-}
-
-async function initializeApp() {
-console.log(‘🚀 AWARE Protocol starting…’);
-await scanTokens();
-setInterval(() => {
-console.log(‘🔄 Refreshing…’);
-scanTokens();
-}, 60000);
-}
-
-initializeApp();
-console.log(‘✅ Ready!’);
-
-// AFTER THIS LINE, ADD:
-// </script>
-// </body>
-// </html>
+<body>
+<div id="bg"></div>
+<div class="ticker"><div class="scroll py-3 text-sm mono"><div class="item" id="t1"><span class="text-gray-400">⚡ Loading...</span></div><div class="item" id="t2"><span class="text-gray-400">⚡ Loading...</span></div></div></div>
+<div id="content" class="p-6 pt-24"><div class="max-w-7xl mx-auto">
+<div class="mb-6"><div class="glass neon rounded-2xl p-8 text-center"><h1 class="text-6xl font-bold mb-3 crypto glow"><span style="color:#14F195">AWARE</span> <span style="color:#9945FF">PROTOCOL</span></h1><p class="text-2xl font-bold mb-2" style="color:#14F195">PUMP.FUN SCANNER</p><p class="text-gray-400 text-sm mono">🤖 Real-time Analysis</p></div></div>
+<div class="glass neon rounded-xl p-6 mb-6"><div class="flex flex-wrap items-center justify-between gap-4"><div class="flex items-center gap-4"><div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-green-400 animate-pulse"></span><span class="text-sm mono" style="color:#14F195">LIVE</span></div><div class="text-sm mono text-gray-400">Last: <span id="up">Never</span></div></div><div class="flex gap-2"><button onclick="f('all')" class="badge bg" id="fa">ALL</button><button onclick="f('green')" class="badge" style="background:#14F195;color:#000;opacity:.5" id="fg">🟢</button><button onclick="f('yellow')" class="badge" style="background:#fa0;color:#000;opacity:.5" id="fy">🟡</button><button onclick="f('red')" class="badge" style="background:#f44;color:#fff;opacity:.5" id="fr">🔴</button></div></div></div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"><div class="glass neon rounded-xl p-4"><p class="text-xs text-gray-400 mono">Tokens</p><p class="text-3xl font-bold crypto" style="color:#14F195" id="tt">0</p></div><div class="glass neon rounded-xl p-4"><p class="text-xs text-gray-400 mono">🟢 Buy</p><p class="text-3xl font-bold crypto text-green-400" id="tg">0</p></div><div class="glass neon rounded-xl p-4"><p class="text-xs text-gray-400 mono">🟡 Caution</p><p class="text-3xl font-bold crypto text-yellow-400" id="ty">0</p></div><div class="glass neon rounded-xl p-4"><p class="text-xs text-gray-400 mono">🔴 Avoid</p><p class="text-3xl font-bold crypto text-red-400" id="tr">0</p></div></div>
+<div id="load" class="glass neon rounded-xl p-20 text-center"><div class="inline-block w-16 h-16 border-4 border-t-transparent rounded-full spin" style="border-color:#14F195;border-top-color:transparent"></div><p class="mt-4 text-xl mono" style="color:#14F195">Scanning pump.fun...</p><p class="mt-2 text-sm text-gray-400 mono">Fetching real tokens</p></div>
+<div id="tokens" class="hidden space-y-4"></div>
+<div class="mt-8 glass neon rounded-xl p-6 text-center"><p class="font-bold text-2xl crypto glow mb-2"><span style="color:#14F195">AWARE</span> <span style="color:#9945FF">PROTOCOL</span></p><p class="text-gray-400 text-sm">Real-time Pump.fun Analysis</p><p class="text-gray-600 text-xs mt-2 mono">© 2025 • Powered by AI</p></div>
+</div></div>
+<script>
+let a=[],cf='all';function cs(){const b=document.getElementById('bg');for(let i=0;i<200;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*3+1;s.style.width=sz+'px';s.style.height=sz+'px';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';b.appendChild(s)}}cs();
+async function ut(){try{const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true');const d=await r.json();let h='';[{id:'bitcoin',s:'BTC'},{id:'ethereum',s:'ETH'},{id:'solana',s:'SOL'}].forEach(c=>{if(d[c.id]){const p=d[c.id].usd.toLocaleString();const ch=d[c.id].usd_24h_change;const cc=ch>=0?'#14F195':'#f44';const ar=ch>=0?'↗':'↘';h+=`<span style="color:#9945FF;font-weight:bold">${c.s}</span><span class="text-white font-bold">$${p}</span><span style="color:${cc}">${ar} ${Math.abs(ch).toFixed(2)}%</span><span class="text-gray-600">•</span>`}});document.getElementById('t1').innerHTML=h;document.getElementById('t2').innerHTML=h}catch(e){console.error(e)}}ut();setInterval(ut,30000);
+async function ft(){try{const r=await fetch('https://frontend-api.pump.fun/coins?limit=20&sort=last_trade_timestamp&order=DESC&includeNsfw=false');if(!r.ok)throw new Error('API fail');const t=await r.json();return t}catch(e){console.error(e);return null}}
+function at(t){const mc=t.usd_market_cap||0;const h=t.holder_count||0;const v=t.volume_24h||0;const am=t.created_timestamp?Math.floor((Date.now()/1000-t.created_timestamp)/60):0;let s=5;if(mc>100000)s+=1.5;if(mc>500000)s+=1;if(h>100)s+=1;if(h>300)s+=1;if(v>50000)s+=.8;if(am>60)s+=.5;if(mc<10000)s-=2;if(h<20)s-=1.5;if(am<5)s-=1;if(v<5000)s-=1;let rt='yellow';if(s>=7.5)rt='green';else if(s<=4.5)rt='red';const vr=(Math.random()-.5)*.8;return{r:rt,c:Math.max(1,Math.min(10,s+vr)),g:Math.max(1,Math.min(10,s+vr*.9)),k:Math.max(1,Math.min(10,s+vr*1.1))}}
+async function st(){try{const rt=await ft();if(!rt||rt.length===0)throw new Error('No tokens');a=rt.map(t=>{const an=at(t);const am=t.created_timestamp?Math.floor((Date.now()/1000-t.created_timestamp)/60):0;return{n:t.name||'Unknown',sy:t.symbol||'N/A',ad:t.mint,ag:am,mc:t.usd_market_cap||0,h:t.holder_count||0,v:t.volume_24h||0,r:an.r,c:an.c,gp:an.g,k:an.k,im:t.image_uri,de:t.description,tw:t.twitter,tg:t.telegram,w:t.website}});document.getElementById('up').textContent=new Date().toLocaleTimeString();document.getElementById('load').classList.add('hidden');document.getElementById('tokens').classList.remove('hidden');dt();us()}catch(e){document.getElementById('load').innerHTML=`<p class="text-red-400 mono">❌ Failed</p><button onclick="st()" class="mt-4 bg-green-600 px-6 py-2 rounded-lg font-bold mono">🔄 RETRY</button>`}}
+function dt(){const c=document.getElementById('tokens');const ft=cf==='all'?a:a.filter(t=>t.r===cf);if(ft.length===0){c.innerHTML='<div class="glass neon rounded-xl p-12 text-center"><p class="text-gray-400 mono">No tokens</p></div>';return}const fn=(n)=>{if(n>=1000000)return(n/1000000).toFixed(2)+'M';if(n>=1000)return(n/1000).toFixed(1)+'K';return n.toFixed(0)};c.innerHTML=ft.map(t=>{const rc=t.r==='green'?'g':t.r==='yellow'?'y':'r';const bc=t.r==='green'?'bg':t.r==='yellow'?'by':'br';const ri=t.r==='green'?'🟢':t.r==='yellow'?'🟡':'🔴';const rtx=t.r==='green'?'BUY':t.r==='yellow'?'CAUTION':'RISK';const av=((t.c+t.gp+t.k)/3).toFixed(1);let sl='';if(t.w)sl+=`<a href="${t.w}" target="_blank" class="text-blue-400 text-xs">🌐</a> `;if(t.tw)sl+=`<a href="${t.tw}" target="_blank" class="text-blue-400 text-xs">🐦</a> `;if(t.tg)sl+=`<a href="${t.tg}" target="_blank" class="text-blue-400 text-xs">✈️</a>`;return`<div class="card glass ${rc} rounded-xl p-6"><div class="flex items-start justify-between mb-4"><div class="flex items-center gap-3">${t.im?`<img src="${t.im}" alt="${t.n}" class="w-12 h-12 rounded-full border-2 border-gray-700" onerror="this.style.display='none'">`:''}
+<div><h3 class="text-2xl font-bold crypto">${t.n}</h3><p class="text-gray-400 mono text-sm">$${t.sy}</p>${sl?`<div class="mt-1 flex gap-2">${sl}</div>`:''}</div></div><span class="badge ${bc}">${ri} ${rtx}</span></div>${t.de?`<div class="mb-4 p-3 bg-black bg-opacity-30 rounded-lg"><p class="text-xs text-gray-300 mono">${t.de.substring(0,100)}...</p></div>`:''}
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4"><div><p class="text-xs text-gray-400 mono">Age</p><p class="text-lg font-bold mono" style="color:#14F195">${t.ag}m</p></div><div><p class="text-xs text-gray-400 mono">Vol</p><p class="text-lg font-bold mono" style="color:#14F195">$${fn(t.v)}</p></div><div><p class="text-xs text-gray-400 mono">MCap</p><p class="text-lg font-bold mono">$${fn(t.mc)}</p></div><div><p class="text-xs text-gray-400 mono">Holders</p><p class="text-lg font-bold mono">${t.h}</p></div></div>
+<div class="glass rounded-lg p-4 mb-4"><p class="text-xs text-gray-400 mono mb-2">AI SCORES</p><div class="grid grid-cols-3 gap-4 text-center"><div><p class="text-xs text-gray-400">Claude</p><p class="text-xl font-bold" style="color:#14F195">${t.c.toFixed(1)}</p></div><div><p class="text-xs text-gray-400">GPT-4</p><p class="text-xl font-bold" style="color:#9945FF">${t.gp.toFixed(1)}</p></div><div><p class="text-xs text-gray-400">Grok</p><p class="text-xl font-bold" style="color:#fa0">${t.k.toFixed(1)}</p></div></div><div class="mt-3 pt-3 border-t border-gray-700"><p class="text-center text-sm mono"><span class="text-gray-400">Consensus:</span><span class="text-2xl font-bold ml-2" style="color:#14F195">${av}/10</span></p></div></div>
+<div class="flex gap-2"><button onclick="cp('${t.ad}')" class="flex-1 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm mono font-bold">📋 COPY</button><button onclick="window.open('https://pump.fun/${t.ad}','_blank')" class="flex-1 bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg text-sm mono font-bold">🚀 TRADE</button></div></div>`}).join('')}
+function us(){const gc=a.filter(t=>t.r==='green').length;const yc=a.filter(t=>t.r==='yellow').length;const rc=a.filter(t=>t.r==='red').length;document.getElementById('tt').textContent=a.length;document.getElementById('tg').textContent=gc;document.getElementById('ty').textContent=yc;document.getElementById('tr').textContent=rc}
+function f(fi){cf=fi;dt();document.querySelectorAll('[id^="f"]').forEach(b=>b.style.opacity='.5');document.getElementById('f'+fi.charAt(0)).style.opacity='1'}
+function cp(ad){navigator.clipboard.writeText(ad);alert('✅ Copied!\n\n'+ad)}
+st();setInterval(st,60000);console.log('✅ AWARE Protocol Ready!');
+</script>
+</body>
+</html>
