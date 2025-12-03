@@ -229,8 +229,7 @@ console.log(‘✅ Done!’);
 } catch (error) {
 console.error(‘❌ Error:’, error);
 document.getElementById(‘loading’).innerHTML = `<p class="text-red-400 mono-font text-lg">❌ Failed</p><p class="text-gray-500 mono-font text-sm mt-2">${error.message}</p><button onclick="scanTokens()" class="mt-4 bg-green-600 px-6 py-2 rounded-lg font-bold mono-font">🔄 RETRY</button>`;
-}
-}// PASTE THIS AFTER PART 2
+}}// PASTE THIS AFTER PART 2
 
 function displayTokens() {
 const container = document.getElementById(‘tokenContainer’);
