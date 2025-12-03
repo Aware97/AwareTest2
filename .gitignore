@@ -1,0 +1,46 @@
+# ==================== GITIGNORE ====================
+
+# This file tells GitHub: “Don’t upload these files!”
+
+# Think of it as a bouncer at a club - keeps the bad stuff out
+
+# 🔒 SECRET FILES (NEVER UPLOAD!)
+
+.env
+.env.local
+.env.production
+*.key
+secrets.json
+
+# 📦 Node Modules (Too big, not needed)
+
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 💻 System Files
+
+.DS_Store
+Thumbs.db
+*.log
+
+# 🛠️ Build Files
+
+dist/
+build/
+*.cache
+
+# 📝 IDE Files
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==================== WHY THIS MATTERS ====================
+
+# Without this file, you might accidentally upload your API keys
+
+# to GitHub and hackers will steal them in SECONDS!
+
+# This happened to many developers - don’t be one of them!
