@@ -1,0 +1,144 @@
+index.html 
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWARE Protocol - AI-Powered Crypto Intelligence</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Rajdhani,sans-serif;background:#000;color:#fff;overflow-x:hidden}#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%)}.star{position:absolute;background:#fff;border-radius:50%;animation:tw 3s infinite}@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}.content{position:relative;z-index:10}.crypto{font-family:Orbitron;letter-spacing:3px;text-transform:uppercase}.mono{font-family:'Space Mono',monospace}.glass{background:rgba(0,0,0,.7);backdrop-filter:blur(20px);border:1px solid rgba(20,241,149,.2);box-shadow:0 8px 32px 0 rgba(20,241,149,.1);transition:all .3s}.glass:hover{border-color:rgba(20,241,149,.4);transform:translateY(-2px)}.neon{border:2px solid transparent;background:linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) padding-box,linear-gradient(135deg,#14F195,#9945FF) border-box;animation:pulse 3s ease-in-out infinite}@keyframes pulse{0%,100%{filter:drop-shadow(0 0 5px #14F195)}50%{filter:drop-shadow(0 0 20px #14F195) drop-shadow(0 0 30px #9945FF)}}.glow{animation:glow 3s ease-in-out infinite}@keyframes glow{0%,100%{text-shadow:0 0 10px #14F195,0 0 20px #14F195,0 0 30px #14F195,0 0 40px #9945FF}50%{text-shadow:0 0 20px #14F195,0 0 30px #14F195,0 0 40px #14F195,0 0 50px #9945FF}}nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);border-bottom:2px solid rgba(20,241,149,.3);backdrop-filter:blur(10px)}.nav-link{color:#fff;text-decoration:none;padding:.5rem 1rem;transition:all .3s;font-family:'Space Mono',monospace;font-size:.9rem}.nav-link:hover{color:#14F195;transform:scale(1.05)}.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem}.feature-card{transition:all .3s;cursor:pointer}.feature-card:hover{transform:translateY(-10px) scale(1.02)}.btn-primary{background:linear-gradient(135deg,#14F195,#9945FF);color:#000;font-weight:700;padding:1rem 2rem;border-radius:9999px;border:none;cursor:pointer;transition:all .3s;font-family:'Space Mono',monospace}.btn-primary:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(20,241,149,.5)}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+
+<!-- Navigation -->
+
+<nav class="p-4">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2">
+<span class="text-3xl font-bold crypto glow"><span style="color:#14F195">AWARE</span></span>
+</div>
+<div class="flex flex-wrap gap-4">
+<a href="index.html" class="nav-link" style="color:#14F195">HOME</a>
+<a href="wallet.html" class="nav-link">WALLET</a>
+<a href="chat.html" class="nav-link">AI CHAT</a>
+<a href="scanner.html" class="nav-link">SCANNER</a>
+<a href="about.html" class="nav-link">ABOUT</a>
+</div>
+</div>
+</nav>
+
+<!-- Hero Section -->
+
+<div class="content hero">
+<div class="max-w-5xl mx-auto">
+<h1 class="text-7xl md:text-9xl font-bold mb-6 crypto glow">
+<span style="color:#14F195">AWARE</span><br>
+<span style="color:#9945FF">PROTOCOL</span>
+</h1>
+<p class="text-2xl md:text-4xl mb-4 mono" style="color:#14F195">AI-Powered Crypto Intelligence</p>
+<p class="text-xl md:text-2xl text-gray-400 mb-8 mono">Scan • Analyze • Dominate</p>
+<div class="flex flex-wrap gap-4 justify-center">
+<a href="scanner.html"><button class="btn-primary text-xl">🚀 LAUNCH SCANNER</button></a>
+<a href="wallet.html"><button class="btn-primary text-xl">💰 CONNECT WALLET</button></a>
+<a href="chat.html"><button class="btn-primary text-xl">🤖 AI CHAT</button></a>
+</div>
+</div>
+</div>
+
+<!-- Features Section -->
+
+<div class="content p-6 pb-20">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-5xl font-bold text-center mb-12 crypto glow">FEATURES</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Scanner Feature -->
+<div class="feature-card glass neon rounded-2xl p-6">
+<div class="text-6xl mb-4">🔍</div>
+<h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">PUMP.FUN SCANNER</h3>
+<p class="text-gray-400 mono mb-4">Real-time token scanning with AI-powered analysis. Get instant buy/sell/caution signals.</p>
+<a href="scanner.html" class="text-sm mono" style="color:#14F195">Launch Scanner →</a>
+</div>
+
+<!-- Wallet Feature -->
+
+<div class="feature-card glass neon rounded-2xl p-6">
+<div class="text-6xl mb-4">💰</div>
+<h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">SMART WALLET</h3>
+<p class="text-gray-400 mono mb-4">Connect Phantom or Solflare. View balance, transactions, and manage your portfolio.</p>
+<a href="wallet.html" class="text-sm mono" style="color:#14F195">Connect Wallet →</a>
+</div>
+
+<!-- AI Chat Feature -->
+
+<div class="feature-card glass neon rounded-2xl p-6">
+<div class="text-6xl mb-4">🤖</div>
+<h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">AI ASSISTANT</h3>
+<p class="text-gray-400 mono mb-4">Chat with AI about any token. Get analysis, advice, and market insights instantly.</p>
+<a href="chat.html" class="text-sm mono" style="color:#14F195">Start Chat →</a>
+</div>
+
+<!-- Analytics Feature -->
+
+<div class="feature-card glass neon rounded-2xl p-6">
+<div class="text-6xl mb-4">📊</div>
+<h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">LIVE ANALYTICS</h3>
+<p class="text-gray-400 mono mb-4">Track market caps, holders, volume, and more. Real-time data from Pump.fun.</p>
+<a href="scanner.html" class="text-sm mono" style="color:#14F195">View Analytics →</a>
+</div>
+</div>
+
+<!-- Stats Section -->
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+<div class="glass neon rounded-xl p-6 text-center">
+<p class="text-5xl font-bold crypto glow">1000+</p>
+<p class="text-gray-400 mono mt-2">Tokens Scanned</p>
+</div>
+<div class="glass neon rounded-xl p-6 text-center">
+<p class="text-5xl font-bold crypto glow">24/7</p>
+<p class="text-gray-400 mono mt-2">Live Monitoring</p>
+</div>
+<div class="glass neon rounded-xl p-6 text-center">
+<p class="text-5xl font-bold crypto glow">👁️</p>
+<p class="text-gray-400 mono mt-2">Consensus Analysis</p>
+</div>
+<div class="glass neon rounded-xl p-6 text-center">
+<p class="text-5xl font-bold crypto glow">100%</p>
+<p class="text-gray-400 mono mt-2">Free Forever</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+
+<footer class="content p-6 border-t-2" style="border-color:rgba(20,241,149,.3)">
+<div class="max-w-7xl mx-auto text-center">
+<p class="text-2xl font-bold crypto glow mb-4">
+<span style="color:#14F195">AWARE</span> <span style="color:#9945FF">PROTOCOL</span>
+</p>
+<div class="flex flex-wrap justify-center gap-4 mb-4 mono text-sm">
+<a href="about.html" class="text-gray-400 hover:text-green-400">About</a>
+<span class="text-gray-600">•</span>
+<a href="terms.html" class="text-gray-400 hover:text-green-400">Terms</a>
+<span class="text-gray-600">•</span>
+<a href="privacy.html" class="text-gray-400 hover:text-green-400">Privacy</a>
+<span class="text-gray-600">•</span>
+<a href="mailto:awareprotocol@gmail.com" class="text-gray-400 hover:text-green-400">Contact</a>
+</div>
+<p class="text-gray-600 text-xs mono">© 2025 AWARE Protocol • Built for Degens, by Degens</p>
+</div>
+</footer>
+
+<script>
+function createStars(){const b=document.getElementById('bg');for(let i=0;i<300;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*3+1;s.style.width=sz+'px';s.style.height=sz+'px';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';b.appendChild(s)}}createStars();
+</script>
+
+</body>
+</html>
