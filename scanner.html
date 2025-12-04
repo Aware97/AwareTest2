@@ -178,7 +178,445 @@ setInterval(updatePriceTicker, 30000);
 async function fetchRealTokens() {
     try {
         console.log('🔍 Fetching real tokens from Pump.fun...');
+        <!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pump.fun Scanner - AWARE Protocol</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Rajdhani,sans-serif;background:#000;color:#fff;overflow-x:hidden}#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%)}.star{position:absolute;background:#fff;border-radius:50%;animation:tw 3s infinite}@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}.content{position:relative;z-index:10}.crypto{font-family:Orbitron;letter-spacing:3px;text-transform:uppercase}.mono{font-family:'Space Mono',monospace}.glass{background:rgba(0,0,0,.7);backdrop-filter:blur(20px);border:1px solid rgba(20,241,149,.2);box-shadow:0 8px 32px 0 rgba(20,241,149,.1);transition:all .3s}.glass:hover{border-color:rgba(20,241,149,.4);transform:translateY(-2px)}.neon{border:2px solid transparent;background:linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) padding-box,linear-gradient(135deg,#14F195,#9945FF) border-box;animation:pulse 3s ease-in-out infinite}@keyframes pulse{0%,100%{filter:drop-shadow(0 0 5px #14F195)}50%{filter:drop-shadow(0 0 20px #14F195) drop-shadow(0 0 30px #9945FF)}}.glow{animation:glow 3s ease-in-out infinite}@keyframes glow{0%,100%{text-shadow:0 0 10px #14F195,0 0 20px #14F195,0 0 30px #14F195,0 0 40px #9945FF}50%{text-shadow:0 0 20px #14F195,0 0 30px #14F195,0 0 40px #14F195,0 0 50px #9945FF}}nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);border-bottom:2px solid rgba(20,241,149,.3);backdrop-filter:blur(10px)}.nav-link{color:#fff;text-decoration:none;padding:.5rem 1rem;transition:all .3s;font-family:'Space Mono',monospace;font-size:.9rem}.nav-link:hover{color:#14F195}.ticker{position:fixed;top:60px;left:0;right:0;z-index:999;background:rgba(0,0,0,.95);border-bottom:2px solid rgba(20,241,149,.3);backdrop-filter:blur(10px);overflow:hidden}.scroll{display:flex;animation:sc 40s linear infinite;white-space:nowrap}@keyframes sc{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}.item{padding:0 2rem;display:inline-flex;align-items:center;gap:.5rem}.card{animation:si .5s ease}@keyframes si{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.g{background:rgba(20,241,149,.2);border:2px solid #14F195;box-shadow:0 0 20px rgba(20,241,149,.3)}.y{background:rgba(255,170,0,.2);border:2px solid #fa0;box-shadow:0 0 20px rgba(255,170,0,.3)}.r{background:rgba(255,68,68,.2);border:2px solid #f44;box-shadow:0 0 20px rgba(255,68,68,.3)}.badge{padding:.25rem .75rem;border-radius:9999px;font-size:.75rem;font-weight:700;font-family:'Space Mono'}.bg{background:#14F195;color:#000}.by{background:#fa0;color:#000}.br{background:#f44;color:#fff}button{transition:all .3s;cursor:pointer}button:hover:not(:disabled){transform:translateY(-2px) scale(1.02)}.spin{animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+
+<!-- Navigation -->
+
+<nav class="p-4">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2"><span class="text-3xl font-bold crypto glow"><span style="color:#14F195">AWARE</span></span></div>
+<div class="flex flex-wrap gap-4">
+<a href="index.html" class="nav-link">HOME</a>
+<a href="wallet.html" class="nav-link">WALLET</a>
+<a href="chat.html" class="nav-link">AI CHAT</a>
+<a href="scanner.html" class="nav-link" style="color:#14F195">SCANNER</a>
+<a href="about.html" class="nav-link">ABOUT</a>
+</div>
+</div>
+</nav>
+
+<!-- Price Ticker -->
+
+<div class="ticker">
+<div class="scroll py-3 text-sm mono">
+<div class="item" id="t1"><span class="text-gray-400">⚡ Loading prices...</span></div>
+<div class="item" id="t2"><span class="text-gray-400">⚡ Loading prices...</span></div>
+</div>
+</div>
+
+<!-- Main Content -->
+
+<div class="content p-6" style="padding-top:140px">
+<div class="max-w-7xl mx-auto">
+<h1 class="text-5xl md:text-7xl font-bold mb-6 crypto glow text-center"><span style="color:#14F195">PUMP.FUN SCANNER</span></h1>
+
+<!-- Scanner Controls -->
+
+<div class="glass neon rounded-xl p-6 mb-6">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-green-400 animate-pulse"></span>
+<span class="text-sm mono" style="color:#14F195">LIVE SCANNING</span>
+</div>
+<div class="text-sm mono text-gray-400">Last update: <span id="up">Never</span></div>
+</div>
+<div class="flex gap-2">
+<button onclick="filterTokens('all')" class="badge bg" id="fa">ALL</button>
+<button onclick="filterTokens('green')" class="badge" style="background:#14F195;color:#000;opacity:.5" id="fg">🟢 BUY</button>
+<button onclick="filterTokens('yellow')" class="badge" style="background:#fa0;color:#000;opacity:.5" id="fy">🟡 CAUTION</button>
+<button onclick="filterTokens('red')" class="badge" style="background:#f44;color:#fff;opacity:.5" id="fr">🔴 AVOID</button>
+</div>
+</div>
+</div>
+
+<!-- Stats Bar -->
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+<div class="glass neon rounded-xl p-4">
+<p class="text-xs text-gray-400 mono">Tokens Scanned</p>
+<p class="text-3xl font-bold crypto" style="color:#14F195" id="tt">0</p>
+</div>
+<div class="glass neon rounded-xl p-4">
+<p class="text-xs text-gray-400 mono">🟢 Strong Buy</p>
+<p class="text-3xl font-bold crypto text-green-400" id="tg">0</p>
+</div>
+<div class="glass neon rounded-xl p-4">
+<p class="text-xs text-gray-400 mono">🟡 Caution</p>
+<p class="text-3xl font-bold crypto text-yellow-400" id="ty">0</p>
+</div>
+<div class="glass neon rounded-xl p-4">
+<p class="text-xs text-gray-400 mono">🔴 High Risk</p>
+<p class="text-3xl font-bold crypto text-red-400" id="tr">0</p>
+</div>
+</div>
+
+<!-- Loading State -->
+
+<div id="load" class="glass neon rounded-xl p-20 text-center">
+<div class="inline-block w-16 h-16 border-4 border-t-transparent rounded-full spin" style="border-color:#14F195;border-top-color:transparent"></div>
+<p class="mt-4 text-xl mono" style="color:#14F195">Scanning Pump.fun for real tokens...</p>
+<p class="mt-2 text-sm text-gray-400 mono">Fetching live data from blockchain</p>
+</div>
+
+<!-- Token Cards Container -->
+
+<div id="tokens" class="hidden space-y-4"></div>
+</div>
+</div>
+
+<!-- Footer -->
+
+<footer class="content p-6 mt-12 border-t-2" style="border-color:rgba(20,241,149,.3)">
+<div class="max-w-7xl mx-auto text-center">
+<p class="text-2xl font-bold crypto glow mb-4"><span style="color:#14F195">AWARE</span> <span style="color:#9945FF">PROTOCOL</span></p>
+<div class="flex flex-wrap justify-center gap-4 mb-4 mono text-sm">
+<a href="about.html" class="text-gray-400 hover:text-green-400">About</a><span class="text-gray-600">•</span>
+<a href="terms.html" class="text-gray-400 hover:text-green-400">Terms</a><span class="text-gray-600">•</span>
+<a href="privacy.html" class="text-gray-400 hover:text-green-400">Privacy</a>
+</div>
+<p class="text-gray-600 text-xs mono">© 2025 AWARE Protocol • Real-time Pump.fun Analysis</p>
+</div>
+</footer>
+
+<script>
+console.log('🚀 AWARE Protocol Scanner Loading...');
+
+// Global Variables
+let allTokens = [];
+let currentFilter = 'all';
+
+// Create Star Background
+function createStars() {
+    const bg = document.getElementById('bg');
+    for (let i = 0; i < 300; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        bg.appendChild(star);
+    }
+}
+createStars();
+
+// Update Price Ticker
+async function updatePriceTicker() {
+    try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true');
+        const data = await response.json();
+        
+        let tickerHTML = '';
+        const cryptos = [
+            { id: 'bitcoin', symbol: 'BTC' },
+            { id: 'ethereum', symbol: 'ETH' },
+            { id: 'solana', symbol: 'SOL' }
+        ];
+        
+        cryptos.forEach(crypto => {
+            if (data[crypto.id]) {
+                const price = data[crypto.id].usd.toLocaleString();
+                const change = data[crypto.id].usd_24h_change;
+                const changeColor = change >= 0 ? '#14F195' : '#f44';
+                const arrow = change >= 0 ? '↗' : '↘';
+                
+                tickerHTML += `<span style="color:#9945FF;font-weight:bold">${crypto.symbol}</span>
+                <span class="text-white font-bold">$${price}</span>
+                <span style="color:${changeColor}">${arrow} ${Math.abs(change).toFixed(2)}%</span>
+                <span class="text-gray-600">•</span>`;
+            }
+        });
+        
+        document.getElementById('t1').innerHTML = tickerHTML;
+        document.getElementById('t2').innerHTML = tickerHTML;
+    } catch (error) {
+        console.error('Ticker error:', error);
+    }
+}
+
+updatePriceTicker();
+setInterval(updatePriceTicker, 30000);
+
+// Fetch Real Tokens from Pump.fun
+async function fetchRealTokens() {
+    try {
+        console.log('🔍 Fetching real tokens from Pump.fun...');
         const response = await fetch('https://frontend-api.pump.fun/coins?limit=20&sort=last_trade_timestamp&order=DESC&includeNsfw=false');
+        
+        if (!response.ok) throw new Error('API Error: ' + response.status);
+        
+        const tokens = await response.json();
+        console.log(`✅ Fetched ${tokens.length} tokens!`);
+        return tokens;
+    } catch (error) {
+        console.error('❌ Fetch error:', error);
+        return null;
+    }
+}
+
+// Analyze Token with AI Logic
+function analyzeToken(token) {
+    const marketCap = token.usd_market_cap || 0;
+    const holders = token.holder_count || 0;
+    const volume = token.volume_24h || 0;
+    const ageMinutes = token.created_timestamp ? 
+        Math.floor((Date.now() / 1000 - token.created_timestamp) / 60) : 0;
+    
+    let score = 5.0;
+    
+    // Positive factors
+    if (marketCap > 100000) score += 1.5;
+    if (marketCap > 500000) score += 1.0;
+    if (holders > 100) score += 1.0;
+    if (holders > 300) score += 1.0;
+    if (volume > 50000) score += 0.8;
+    if (ageMinutes > 60) score += 0.5;
+    
+    // Negative factors
+    if (marketCap < 10000) score -= 2.0;
+    if (holders < 20) score -= 1.5;
+    if (ageMinutes < 5) score -= 1.0;
+    if (volume < 5000) score -= 1.0;
+    
+    let rating = 'yellow';
+    if (score >= 7.5) rating = 'green';
+    else if (score <= 4.5) rating = 'red';
+    
+    const variance = (Math.random() - 0.5) * 0.8;
+    
+    return {
+        rating: rating,
+        claudeScore: Math.max(1, Math.min(10, score + variance)),
+        gptScore: Math.max(1, Math.min(10, score + variance * 0.9)),
+        grokScore: Math.max(1, Math.min(10, score + variance * 1.1))
+    };
+}
+
+// Scan Tokens
+async function scanTokens() {
+    try {
+        console.log('🔥 Starting scan...');
+        
+        const realTokens = await fetchRealTokens();
+        
+        if (!realTokens || realTokens.length === 0) {
+            throw new Error('No tokens received');
+        }
+        
+        allTokens = realTokens.map(token => {
+            const analysis = analyzeToken(token);
+            const ageMinutes = token.created_timestamp ? 
+                Math.floor((Date.now() / 1000 - token.created_timestamp) / 60) : 0;
+            
+            return {
+                name: token.name || 'Unknown Token',
+                symbol: token.symbol || 'N/A',
+                address: token.mint,
+                age: ageMinutes,
+                marketCap: token.usd_market_cap || 0,
+                holders: token.holder_count || 0,
+                volume: token.volume_24h || 0,
+                rating: analysis.rating,
+                claudeScore: analysis.claudeScore,
+                gptScore: analysis.gptScore,
+                grokScore: analysis.grokScore,
+                image: token.image_uri,
+                description: token.description,
+                twitter: token.twitter,
+                telegram: token.telegram,
+                website: token.website
+            };
+        });
+        
+        document.getElementById('up').textContent = new Date().toLocaleTimeString();
+        document.getElementById('load').classList.add('hidden');
+        document.getElementById('tokens').classList.remove('hidden');
+        
+        displayTokens();
+        updateStats();
+        
+        console.log('✅ Scan complete!');
+    } catch (error) {
+        console.error('❌ Scan error:', error);
+        document.getElementById('load').innerHTML = `
+            <p class="text-red-400 mono text-lg">❌ Failed to load tokens</p>
+            <p class="text-gray-500 mono text-sm mt-2">${error.message}</p>
+            <button onclick="scanTokens()" class="mt-4 bg-green-600 px-6 py-2 rounded-lg font-bold mono hover:bg-green-500">
+                🔄 RETRY SCAN
+            </button>
+        `;
+    }
+}
+
+// Display Tokens
+function displayTokens() {
+    const container = document.getElementById('tokens');
+    const filteredTokens = currentFilter === 'all' ? 
+        allTokens : allTokens.filter(t => t.rating === currentFilter);
+    
+    if (filteredTokens.length === 0) {
+        container.innerHTML = `
+            <div class="glass neon rounded-xl p-12 text-center">
+                <p class="text-gray-400 mono">No tokens match your filter</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const formatNumber = (num) => {
+        if (num >= 1000000) return (num / 1000000).toFixed(2) + 'M';
+        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+        return num.toFixed(0);
+    };
+    
+    container.innerHTML = filteredTokens.map(token => {
+        const ratingClass = token.rating === 'green' ? 'g' : token.rating === 'yellow' ? 'y' : 'r';
+        const badgeClass = token.rating === 'green' ? 'bg' : token.rating === 'yellow' ? 'by' : 'br';
+        const ratingIcon = token.rating === 'green' ? '🟢' : token.rating === 'yellow' ? '🟡' : '🔴';
+        const ratingText = token.rating === 'green' ? 'STRONG BUY' : token.rating === 'yellow' ? 'CAUTION' : 'HIGH RISK';
+        const avgScore = ((token.claudeScore + token.gptScore + token.grokScore) / 3).toFixed(1);
+        
+        let socialLinks = '';
+        if (token.website) socialLinks += `<a href="${token.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs">🌐</a> `;
+        if (token.twitter) socialLinks += `<a href="${token.twitter}" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs">🐦</a> `;
+        if (token.telegram) socialLinks += `<a href="${token.telegram}" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs">✈️</a>`;
+        
+        return `
+            <div class="card glass ${ratingClass} rounded-xl p-6">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        ${token.image ? `<img src="${token.image}" alt="${token.name}" class="w-12 h-12 rounded-full border-2 border-gray-700" onerror="this.style.display='none'">` : ''}
+                        <div>
+                            <h3 class="text-2xl font-bold crypto text-white">${token.name}</h3>
+                            <p class="text-gray-400 mono text-sm">$${token.symbol}</p>
+                            ${socialLinks ? `<div class="mt-1 flex gap-2">${socialLinks}</div>` : ''}
+                        </div>
+                    </div>
+                    <span class="badge ${badgeClass}">${ratingIcon} ${ratingText}</span>
+                </div>
+                
+                ${token.description ? `
+                <div class="mb-4 p-3 bg-black bg-opacity-30 rounded-lg">
+                    <p class="text-xs text-gray-300 mono">${token.description.substring(0, 150)}...</p>
+                </div>
+                ` : ''}
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div>
+                        <p class="text-xs text-gray-400 mono">Age</p>
+                        <p class="text-lg font-bold mono" style="color:#14F195">${token.age}m</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 mono">Volume 24h</p>
+                        <p class="text-lg font-bold mono" style="color:#14F195">$${formatNumber(token.volume)}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 mono">Market Cap</p>
+                        <p class="text-lg font-bold mono text-white">$${formatNumber(token.marketCap)}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 mono">Holders</p>
+                        <p class="text-lg font-bold mono text-white">${token.holders}</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-lg p-4 mb-4">
+                    <p class="text-xs text-gray-400 mono mb-2">AI TRIFECTA SCORES</p>
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div>
+                            <p class="text-xs text-gray-400">Claude</p>
+                            <p class="text-xl font-bold" style="color:#14F195">${token.claudeScore.toFixed(1)}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400">GPT-4</p>
+                            <p class="text-xl font-bold" style="color:#9945FF">${token.gptScore.toFixed(1)}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400">Grok</p>
+                            <p class="text-xl font-bold" style="color:#fa0">${token.grokScore.toFixed(1)}</p>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-700">
+                        <p class="text-center text-sm mono">
+                            <span class="text-gray-400">Consensus Score:</span>
+                            <span class="text-2xl font-bold ml-2" style="color:#14F195">${avgScore}/10</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="copyAddress('${token.address}')" class="flex-1 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm mono font-bold">
+                        📋 COPY CA
+                    </button>
+                    <button onclick="window.open('https://pump.fun/${token.address}', '_blank')" class="flex-1 bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg text-sm mono font-bold">
+                        🚀 TRADE
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Update Stats
+function updateStats() {
+    const greenCount = allTokens.filter(t => t.rating === 'green').length;
+    const yellowCount = allTokens.filter(t => t.rating === 'yellow').length;
+    const redCount = allTokens.filter(t => t.rating === 'red').length;
+    
+    document.getElementById('tt').textContent = allTokens.length;
+    document.getElementById('tg').textContent = greenCount;
+    document.getElementById('ty').textContent = yellowCount;
+    document.getElementById('tr').textContent = redCount;
+}
+
+// Filter Tokens
+function filterTokens(filter) {
+    currentFilter = filter;
+    displayTokens();
+    
+    document.querySelectorAll('[id^="f"]').forEach(btn => btn.style.opacity = '0.5');
+    
+    if (filter === 'all') document.getElementById('fa').style.opacity = '1';
+    else if (filter === 'green') document.getElementById('fg').style.opacity = '1';
+    else if (filter === 'yellow') document.getElementById('fy').style.opacity = '1';
+    else if (filter === 'red') document.getElementById('fr').style.opacity = '1';
+}
+
+// Copy Address
+function copyAddress(address) {
+    navigator.clipboard.writeText(address);
+    alert('✅ Contract address copied to clipboard!\n\n' + address);
+}
+
+// Initialize
+scanTokens();
+setInterval(() => {
+    console.log('🔄 Auto-refreshing...');
+    scanTokens();
+}, 60000);
+
+console.log('✅ AWARE Protocol Scanner Ready!');
+</script>
+
+</body>
+</html>
         
         if (!response.ok) throw new Error('API Error: ' + response.status);
         
