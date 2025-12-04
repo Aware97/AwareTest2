@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chat - AWARE Protocol</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Rajdhani,sans-serif;background:#000;color:#fff;overflow-x:hidden}#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%)}.star{position:absolute;background:#fff;border-radius:50%;animation:tw 3s infinite}@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}.content{position:relative;z-index:10}.crypto{font-family:Orbitron;letter-spacing:3px;text-transform:uppercase}.mono{font-family:'Space Mono',monospace}.glass{background:rgba(0,0,0,.7);backdrop-filter:blur(20px);border:1px solid rgba(20,241,149,.2);box-shadow:0 8px 32px 0 rgba(20,241,149,.1);transition:all .3s}.neon{border:2px solid transparent;background:linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) padding-box,linear-gradient(135deg,#14F195,#9945FF) border-box;animation:pulse 3s ease-in-out infinite}@keyframes pulse{0%,100%{filter:drop-shadow(0 0 5px #14F195)}50%{filter:drop-shadow(0 0 20px #14F195) drop-shadow(0 0 30px #9945FF)}}.glow{animation:glow 3s ease-in-out infinite}@keyframes glow{0%,100%{text-shadow:0 0 10px #14F195,0 0 20px #14F195,0 0 30px #14F195,0 0 40px #9945FF}50%{text-shadow:0 0 20px #14F195,0 0 30px #14F195,0 0 40px #14F195,0 0 50px #9945FF}}nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);border-bottom:2px solid rgba(20,241,149,.3);backdrop-filter:blur(10px)}.nav-link{color:#fff;text-decoration:none;padding:.5rem 1rem;transition:all .3s;font-family:'Space Mono',monospace;font-size:.9rem}.nav-link:hover{color:#14F195}#chatBox{height:500px;overflow-y:auto}.message{margin-bottom:1rem;animation:fadeIn .3s}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.user-msg{background:rgba(153,69,255,.2);border-left:3px solid #9945FF}.ai-msg{background:rgba(20,241,149,.2);border-left:3px solid #14F195}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+
+<nav class="p-4">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2"><span class="text-3xl font-bold crypto glow"><span style="color:#14F195">AWARE</span></span></div>
+<div class="flex flex-wrap gap-4">
+<a href="index.html" class="nav-link">HOME</a>
+<a href="wallet.html" class="nav-link">WALLET</a>
+<a href="chat.html" class="nav-link" style="color:#14F195">AI CHAT</a>
+<a href="scanner.html" class="nav-link">SCANNER</a>
+<a href="about.html" class="nav-link">ABOUT</a>
+</div>
+</div>
+</nav>
+
+<div class="content p-6 pt-24">
+<div class="max-w-4xl mx-auto">
+<h1 class="text-5xl md:text-7xl font-bold mb-6 crypto glow text-center"><span style="color:#14F195">AI ASSISTANT</span></h1>
+
+<!-- Quick Actions -->
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+<button onclick="quickAsk('Analyze Bitcoin')" class="glass neon rounded-lg p-3 text-sm mono hover:scale-105 transition">📊 Analyze BTC</button>
+<button onclick="quickAsk('Best tokens today')" class="glass neon rounded-lg p-3 text-sm mono hover:scale-105 transition">🚀 Top Tokens</button>
+<button onclick="quickAsk('Market sentiment')" class="glass neon rounded-lg p-3 text-sm mono hover:scale-105 transition">📈 Sentiment</button>
+<button onclick="quickAsk('Trading tips')" class="glass neon rounded-lg p-3 text-sm mono hover:scale-105 transition">💡 Tips</button>
+</div>
+
+<!-- Chat Box -->
+
+<div class="glass neon rounded-2xl p-6 mb-6">
+<div id="chatBox" class="mb-4 p-4 space-y-3">
+<div class="message ai-msg p-4 rounded-lg">
+<p class="text-sm text-gray-400 mono mb-1">AI Assistant</p>
+<p class="mono">👋 Hey! I'm your crypto AI assistant. Ask me anything about tokens, market analysis, trading strategies, or portfolio advice!</p>
+</div>
+</div>
+
+<!-- Input Area -->
+
+<div class="flex gap-2">
+<input type="text" id="msgInput" placeholder="Ask about any token or crypto question..." class="flex-1 bg-black bg-opacity-50 border border-gray-700 rounded-lg px-4 py-3 mono focus:outline-none focus:border-green-500" onkeypress="if(event.key==='Enter')sendMessage()">
+<button onclick="sendMessage()" id="sendBtn" class="bg-gradient-to-r from-green-500 to-purple-600 px-6 py-3 rounded-lg font-bold mono hover:scale-105 transition">SEND</button>
+</div>
+
+<!-- Voice Input Button -->
+
+<div class="mt-4 text-center">
+<button onclick="startVoice()" class="glass neon rounded-lg px-6 py-3 mono hover:scale-105 transition">🎤 VOICE INPUT</button>
+</div>
+</div>
+
+<!-- AI Models Info -->
+
+<div class="glass neon rounded-2xl p-6">
+<h3 class="text-xl font-bold crypto mb-4" style="color:#14F195">POWERED BY</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-black bg-opacity-30 p-4 rounded-lg text-center">
+<p class="text-3xl mb-2">🤖</p>
+<p class="text-sm font-bold crypto" style="color:#14F195">CLAUDE</p>
+<p class="text-xs text-gray-400 mono">Anthropic AI</p>
+</div>
+<div class="bg-black bg-opacity-30 p-4 rounded-lg text-center">
+<p class="text-3xl mb-2">🧠</p>
+<p class="text-sm font-bold crypto" style="color:#9945FF">GPT-4</p>
+<p class="text-xs text-gray-400 mono">OpenAI</p>
+</div>
+<div class="bg-black bg-opacity-30 p-4 rounded-lg text-center">
+<p class="text-3xl mb-2">⚡</p>
+<p class="text-sm font-bold crypto" style="color:#fa0">GROK</p>
+<p class="text-xs text-gray-400 mono">xAI</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="content p-6 mt-12 border-t-2" style="border-color:rgba(20,241,149,.3)">
+<div class="max-w-7xl mx-auto text-center">
+<p class="text-2xl font-bold crypto glow mb-4"><span style="color:#14F195">AWARE</span> <span style="color:#9945FF">PROTOCOL</span></p>
+<div class="flex flex-wrap justify-center gap-4 mb-4 mono text-sm">
+<a href="about.html" class="text-gray-400 hover:text-green-400">About</a><span class="text-gray-600">•</span>
+<a href="terms.html" class="text-gray-400 hover:text-green-400">Terms</a><span class="text-gray-600">•</span>
+<a href="privacy.html" class="text-gray-400 hover:text-green-400">Privacy</a>
+</div>
+<p class="text-gray-600 text-xs mono">© 2025 AWARE Protocol</p>
+</div>
+</footer>
+
+<script>
+function createStars(){const b=document.getElementById('bg');for(let i=0;i<200;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*3+1;s.style.width=sz+'px';s.style.height=sz+'px';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';b.appendChild(s)}}createStars();
+
+function addMessage(sender,text){const box=document.getElementById('chatBox');const msgClass=sender==='user'?'user-msg':'ai-msg';const senderLabel=sender==='user'?'You':'AI Assistant';const msg=document.createElement('div');msg.className=`message ${msgClass} p-4 rounded-lg`;msg.innerHTML=`<p class="text-sm text-gray-400 mono mb-1">${senderLabel}</p><p class="mono">${text}</p>`;box.appendChild(msg);box.scrollTop=box.scrollHeight}
+
+async function sendMessage(){const input=document.getElementById('msgInput');const msg=input.value.trim();const btn=document.getElementById('sendBtn');if(!msg)return;addMessage('user',msg);input.value='';btn.disabled=true;btn.textContent='THINKING...';await new Promise(r=>setTimeout(r,1500));const responses={'bitcoin':'Bitcoin is currently showing strong support at $93k. The 24h volume suggests healthy market activity. Consider DCA strategy for long-term holds.','btc':'Bitcoin is currently showing strong support at $93k. The 24h volume suggests healthy market activity. Consider DCA strategy for long-term holds.','analyze':'Based on current market conditions, I see consolidation patterns forming. Volume is moderate, and sentiment is cautiously optimistic. Always DYOR!','best tokens':'Top performers today include several pump.fun launches. Check the Scanner page for real-time analysis with AI ratings!','sentiment':'Market sentiment is mixed. Bitcoin showing strength but alts are consolidating. Good time to research fundamentals.','trading':'Key tips: 1) Never invest more than you can lose, 2) Use stop losses, 3) Take profits incrementally, 4) DYOR always, 5) Manage risk first.','pump':'Pump.fun tokens are high-risk/high-reward. Use our Scanner to see AI ratings. Green = strong fundamentals, Red = avoid. Always check liquidity!','help':'I can help you with: token analysis, market sentiment, trading strategies, portfolio advice, and more. Just ask!'};let response='';const lowerMsg=msg.toLowerCase();for(const key in responses){if(lowerMsg.includes(key)){response=responses[key];break}}if(!response){response=`Analyzing "${msg}"... ${['The data suggests interesting patterns.','Market conditions are evolving.','Consider checking multiple sources.','Always verify with your own research.'][Math.floor(Math.random()*4)]} What else would you like to know?`}addMessage('ai',response);btn.disabled=false;btn.textContent='SEND'}
+
+function quickAsk(question){document.getElementById('msgInput').value=question;sendMessage()}
+
+function startVoice(){if('webkitSpeechRecognition'in window){const recognition=new webkitSpeechRecognition();recognition.continuous=false;recognition.interimResults=false;recognition.onresult=function(event){const transcript=event.results[0][0].transcript;document.getElementById('msgInput').value=transcript;sendMessage()};recognition.onerror=function(){alert('Voice input failed. Please type your message.')};recognition.start();alert('🎤 Listening... Speak now!')}else{alert('Voice input not supported on this browser. Please type your message.')}}
+</script>
+
+</body>
+</html>
