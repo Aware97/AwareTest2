@@ -1,0 +1,155 @@
+wallet.html 
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wallet - AWARE Protocol</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Rajdhani,sans-serif;background:#000;color:#fff;overflow-x:hidden}#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;background:radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%)}.star{position:absolute;background:#fff;border-radius:50%;animation:tw 3s infinite}@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}.content{position:relative;z-index:10}.crypto{font-family:Orbitron;letter-spacing:3px;text-transform:uppercase}.mono{font-family:'Space Mono',monospace}.glass{background:rgba(0,0,0,.7);backdrop-filter:blur(20px);border:1px solid rgba(20,241,149,.2);box-shadow:0 8px 32px 0 rgba(20,241,149,.1);transition:all .3s}.glass:hover{border-color:rgba(20,241,149,.4);transform:translateY(-2px)}.neon{border:2px solid transparent;background:linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) padding-box,linear-gradient(135deg,#14F195,#9945FF) border-box;animation:pulse 3s ease-in-out infinite}@keyframes pulse{0%,100%{filter:drop-shadow(0 0 5px #14F195)}50%{filter:drop-shadow(0 0 20px #14F195) drop-shadow(0 0 30px #9945FF)}}.glow{animation:glow 3s ease-in-out infinite}@keyframes glow{0%,100%{text-shadow:0 0 10px #14F195,0 0 20px #14F195,0 0 30px #14F195,0 0 40px #9945FF}50%{text-shadow:0 0 20px #14F195,0 0 30px #14F195,0 0 40px #14F195,0 0 50px #9945FF}}nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);border-bottom:2px solid rgba(20,241,149,.3);backdrop-filter:blur(10px)}.nav-link{color:#fff;text-decoration:none;padding:.5rem 1rem;transition:all .3s;font-family:'Space Mono',monospace;font-size:.9rem}.nav-link:hover{color:#14F195}.btn{padding:.75rem 1.5rem;border-radius:9999px;border:none;cursor:pointer;transition:all .3s;font-family:'Space Mono',monospace;font-weight:700}.btn-primary{background:linear-gradient(135deg,#14F195,#9945FF);color:#000}.btn-primary:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(20,241,149,.5)}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+
+<nav class="p-4">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2"><span class="text-3xl font-bold crypto glow"><span style="color:#14F195">AWARE</span></span></div>
+<div class="flex flex-wrap gap-4">
+<a href="index.html" class="nav-link">HOME</a>
+<a href="wallet.html" class="nav-link" style="color:#14F195">WALLET</a>
+<a href="chat.html" class="nav-link">AI CHAT</a>
+<a href="scanner.html" class="nav-link">SCANNER</a>
+<a href="about.html" class="nav-link">ABOUT</a>
+</div>
+</div>
+</nav>
+
+<div class="content p-6 pt-24">
+<div class="max-w-5xl mx-auto">
+<h1 class="text-5xl md:text-7xl font-bold mb-6 crypto glow text-center"><span style="color:#14F195">WALLET</span></h1>
+
+<!-- Connect Wallet Section -->
+
+<div id="connectSection" class="glass neon rounded-2xl p-8 mb-6 text-center">
+<div class="text-6xl mb-4">💰</div>
+<h2 class="text-3xl font-bold crypto mb-4" style="color:#14F195">CONNECT YOUR WALLET</h2>
+<p class="text-gray-400 mono mb-6">Connect Phantom or Solflare to get started</p>
+<div class="flex flex-wrap gap-4 justify-center">
+<button onclick="connectPhantom()" class="btn btn-primary">
+<span class="text-2xl mr-2">👻</span> PHANTOM
+</button>
+<button onclick="connectSolflare()" class="btn btn-primary">
+<span class="text-2xl mr-2">🔥</span> SOLFLARE
+</button>
+</div>
+</div>
+
+<!-- Wallet Dashboard (Hidden until connected) -->
+
+<div id="dashboard" class="hidden">
+<!-- Balance Card -->
+<div class="glass neon rounded-2xl p-6 mb-6">
+<h3 class="text-xl font-bold crypto mb-4" style="color:#14F195">BALANCE</h3>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-5xl font-bold crypto glow" id="balance">0.00</p>
+<p class="text-gray-400 mono mt-2">SOL</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-bold" style="color:#14F195" id="usdValue">$0.00</p>
+<p class="text-gray-400 mono text-sm">USD Value</p>
+</div>
+</div>
+</div>
+
+<!-- Wallet Address -->
+
+<div class="glass neon rounded-2xl p-6 mb-6">
+<h3 class="text-xl font-bold crypto mb-4" style="color:#14F195">WALLET ADDRESS</h3>
+<div class="flex items-center gap-2">
+<code class="flex-1 bg-black bg-opacity-50 p-3 rounded-lg text-sm mono" id="walletAddress">Not connected</code>
+<button onclick="copyAddress()" class="btn btn-primary">📋 COPY</button>
+</div>
+</div>
+
+<!-- Send/Receive Buttons -->
+
+<div class="grid grid-cols-2 gap-4 mb-6">
+<button onclick="showSend()" class="glass neon rounded-xl p-6 text-center hover:scale-105 transition">
+<div class="text-5xl mb-2">📤</div>
+<p class="text-xl font-bold crypto" style="color:#14F195">SEND</p>
+</button>
+<button onclick="showReceive()" class="glass neon rounded-xl p-6 text-center hover:scale-105 transition">
+<div class="text-5xl mb-2">📥</div>
+<p class="text-xl font-bold crypto" style="color:#14F195">RECEIVE</p>
+</button>
+</div>
+
+<!-- Transaction History -->
+
+<div class="glass neon rounded-2xl p-6">
+<h3 class="text-xl font-bold crypto mb-4" style="color:#14F195">RECENT TRANSACTIONS</h3>
+<div id="txHistory" class="space-y-3">
+<p class="text-gray-400 mono text-center py-8">No transactions yet</p>
+</div>
+</div>
+
+<!-- Disconnect Button -->
+
+<div class="text-center mt-6">
+<button onclick="disconnect()" class="btn" style="background:#f44;color:#fff">🔌 DISCONNECT</button>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="content p-6 mt-12 border-t-2" style="border-color:rgba(20,241,149,.3)">
+<div class="max-w-7xl mx-auto text-center">
+<p class="text-2xl font-bold crypto glow mb-4"><span style="color:#14F195">AWARE</span> <span style="color:#9945FF">PROTOCOL</span></p>
+<div class="flex flex-wrap justify-center gap-4 mb-4 mono text-sm">
+<a href="about.html" class="text-gray-400 hover:text-green-400">About</a><span class="text-gray-600">•</span>
+<a href="terms.html" class="text-gray-400 hover:text-green-400">Terms</a><span class="text-gray-600">•</span>
+<a href="privacy.html" class="text-gray-400 hover:text-green-400">Privacy</a>
+</div>
+<p class="text-gray-600 text-xs mono">© 2025 AWARE Protocol</p>
+</div>
+</footer>
+
+<script>
+function createStars(){const b=document.getElementById('bg');for(let i=0;i<200;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*3+1;s.style.width=sz+'px';s.style.height=sz+'px';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';b.appendChild(s)}}createStars();
+
+let walletConnected=false;let walletAddress='';
+
+async function connectPhantom(){try{const{solana}=window;if(!solana||!solana.isPhantom){alert('Phantom wallet not found! Please install from phantom.app');return}const response=await solana.connect();walletAddress=response.publicKey.toString();await loadWallet();alert('✅ Phantom connected!')}catch(error){console.error(error);alert('❌ Connection failed')}}
+
+async function connectSolflare(){alert('🔥 Solflare support coming soon! Use Phantom for now.')}
+
+async function loadWallet(){walletConnected=true;document.getElementById('connectSection').classList.add('hidden');document.getElementById('dashboard').classList.remove('hidden');document.getElementById('walletAddress').textContent=walletAddress;const mockBalance=Math.random()*10;document.getElementById('balance').textContent=mockBalance.toFixed(4);document.getElementById('usdValue').textContent='$'+(mockBalance*100).toFixed(2);loadTransactions()}
+
+function loadTransactions(){const txHTML=`
+<div class="bg-black bg-opacity-30 p-4 rounded-lg flex items-center justify-between">
+<div><p class="text-sm mono" style="color:#14F195">Received</p><p class="text-xs text-gray-400 mono">2 hours ago</p></div>
+<p class="text-xl font-bold mono" style="color:#14F195">+0.5 SOL</p>
+</div>
+<div class="bg-black bg-opacity-30 p-4 rounded-lg flex items-center justify-between">
+<div><p class="text-sm mono text-red-400">Sent</p><p class="text-xs text-gray-400 mono">5 hours ago</p></div>
+<p class="text-xl font-bold mono text-red-400">-0.2 SOL</p>
+</div>
+`;document.getElementById('txHistory').innerHTML=txHTML}
+
+function copyAddress(){navigator.clipboard.writeText(walletAddress);alert('✅ Address copied!\n\n'+walletAddress)}
+
+function showSend(){alert('📤 Send feature coming soon!')}
+
+function showReceive(){alert('📥 Your address:\n\n'+walletAddress+'\n\nScan QR or copy address to receive SOL')}
+
+function disconnect(){walletConnected=false;document.getElementById('connectSection').classList.remove('hidden');document.getElementById('dashboard').classList.add('hidden');alert('🔌 Wallet disconnected')}
+</script>
+
+</body>
+</html>
