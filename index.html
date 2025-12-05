@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -22,7 +23,7 @@ body{font-family:Rajdhani,sans-serif;background:#000;color:#fff;overflow-x:hidde
 .glow{animation:glow 3s ease-in-out infinite}
 @keyframes glow{0%,100%{text-shadow:0 0 10px #14F195,0 0 20px #14F195,0 0 30px #14F195,0 0 40px #9945FF}50%{text-shadow:0 0 20px #14F195,0 0 30px #14F195,0 0 40px #14F195,0 0 50px #9945FF}}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);border-bottom:2px solid rgba(20,241,149,.3);backdrop-filter:blur(10px)}
-.nav-link{color:#fff;text-decoration:none;padding:.5rem 1rem;transition:all .3s;font-family:'Space Mono',monospace;font-size:.9rem}
+.nav-link{color:#fff;text-decoration:none;padding:.5rem 1rem;transition:all .3s;font-family:'Space Mono',monospace;font-size:.9rem;cursor:pointer}
 .nav-link:hover{color:#14F195;transform:scale(1.05)}
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem}
 .feature-card{transition:all .3s;cursor:pointer}
@@ -35,24 +36,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
 <body>
 <div id="bg"></div>
 
-<!-- Navigation -->
 <nav class="p-4">
   <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
     <div class="flex items-center gap-2">
       <span class="text-3xl font-bold crypto glow"><span style="color:#14F195">AWARE</span></span>
     </div>
     <div class="flex flex-wrap gap-4">
-      <a href="#" class="nav-link" style="color:#14F195">HOME</a>
-      <a href="#" class="nav-link">WALLET</a>
-      <a href="#" class="nav-link">CHAT</a>
-      <a href="#" class="nav-link">SCANNER</a>
-      <a href="#" class="nav-link">ABOUT</a>
+      <a class="nav-link" style="color:#14F195" data-nav="home">HOME</a>
+      <a class="nav-link" data-nav="wallet">WALLET</a>
+      <a class="nav-link" data-nav="chat">CHAT</a>
+      <a class="nav-link" data-nav="scanner">SCANNER</a>
+      <a class="nav-link" data-nav="about">ABOUT</a>
     </div>
   </div>
 </nav>
 
-<!-- Hero -->
-<div class="content hero">
+<div class="content hero" id="home-section">
   <div class="max-w-5xl mx-auto">
     <h1 class="text-7xl md:text-9xl font-bold mb-6 crypto glow">
       <span style="color:#14F195">AWARE</span><br>
@@ -68,15 +67,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
   </div>
 </div>
 
-<!-- Features, Stats, Footer (unchanged) -->
 <div class="content p-6 pb-20">
   <div class="max-w-7xl mx-auto">
     <h2 class="text-5xl font-bold text-center mb-12 crypto glow">FEATURES</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">Search Icon</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">PUMP.FUN SCANNER</h3><p class="text-gray-400 mono mb-4">Real-time token scanning...</p></div>
-      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">Money Bag</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">SMART WALLET</h3><p class="text-gray-400 mono mb-4">Connect Phantom or Solflare...</p></div>
-      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">Robot Face</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">AI ASSISTANT</h3><p class="text-gray-400 mono mb-4">Chat with AI about any token...</p></div>
-      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">Chart</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">LIVE ANALYTICS</h3><p class="text-gray-400 mono mb-4">Track market caps, holders...</p></div>
+      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">🔍</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">PUMP.FUN SCANNER</h3><p class="text-gray-400 mono mb-4">Real-time token scanning and analysis</p></div>
+      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">💰</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">SMART WALLET</h3><p class="text-gray-400 mono mb-4">Connect Phantom or Solflare wallets</p></div>
+      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">🤖</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">AI ASSISTANT</h3><p class="text-gray-400 mono mb-4">Chat with AI about any token</p></div>
+      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">📊</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">LIVE ANALYTICS</h3><p class="text-gray-400 mono mb-4">Track market caps and holders</p></div>
     </div>
   </div>
 </div>
@@ -88,7 +86,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
   </div>
 </footer>
 
-<!-- AWARE SOL AGENT SIDEBAR -->
 <div id="awaresol-agent" class="fixed inset-y-0 right-0 w-96 glass neon z-50 transform translate-x-full transition-transform duration-500 overflow-y-auto">
   <div class="p-6">
     <div class="flex justify-between items-center mb-8">
@@ -96,32 +93,45 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
       <button id="close-agent" class="text-4xl hover:text-red-400">×</button>
     </div>
 
-    <div class="grid grid-cols-4 gap-2 text-center text-sm mb-6">
-      <button data-tab="wallets" class="tab-active py-2 rounded">Wallets</button>
-      <button data-tab="scanner" class="py-2 rounded">Scanner</button>
-      <button data-tab="chat" class="py-2 rounded">AI Chat</button>
-      <button data-tab="bundle" class="py-2 rounded">Bundle</button>
-    </div>
+```
+<div class="grid grid-cols-4 gap-2 text-center text-sm mb-6">
+  <button data-tab="wallets" class="tab-active py-2 rounded">Wallets</button>
+  <button data-tab="scanner" class="py-2 rounded">Scanner</button>
+  <button data-tab="chat" class="py-2 rounded">AI Chat</button>
+  <button data-tab="bundle" class="py-2 rounded">Bundle</button>
+</div>
 
-    <div id="agent-content" class="text-white">
-      <!-- JS fills this -->
-    </div>
+<div id="agent-content" class="text-white"></div>
+```
+
   </div>
 </div>
 
-<!-- STARS + AGENT LOGIC -->
 <script>
-// Stars background
-function createStars(){const b=document.getElementById('bg');for(let i=0;i<300;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*3+1;s.style.width=sz+'px';s.style.height=sz+'px';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';b.appendChild(s)}}createStars();
+function createStars(){
+  const b=document.getElementById('bg');
+  for(let i=0;i<300;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()*3+1;
+    s.style.width=sz+'px';
+    s.style.height=sz+'px';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*3+'s';
+    b.appendChild(s);
+  }
+}
+createStars();
+</script>
 
-// Agent Logic
+<script type="module">
 import { Keypair, Connection, LAMPORTS_PER_SOL, PublicKey } from 'https://cdn.jsdelivr.net/npm/@solana/web3.js@1.91.1/+esm';
 import bs58 from 'https://cdn.jsdelivr.net/npm/bs58@5.0.0/+esm';
 
 const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
 let myWallets = JSON.parse(localStorage.getItem('aware_wallets') || '[]');
 
-// UI Controls
 document.getElementById('launch-agent')?.addEventListener('click', () => {
   document.getElementById('awaresol-agent').classList.remove('translate-x-full');
   loadTab('wallets');
@@ -139,21 +149,34 @@ document.querySelectorAll('[data-tab]').forEach(btn => {
   });
 });
 
+document.querySelectorAll('[data-nav]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const section = link.dataset.nav;
+    if (section === 'wallet' || section === 'chat' || section === 'scanner') {
+      document.getElementById('awaresol-agent').classList.remove('translate-x-full');
+      loadTab(section === 'wallet' ? 'wallets' : section);
+    } else if (section === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+});
+
 async function loadTab(tab) {
   if (tab === 'wallets') loadWalletsTab();
-  else if (tab === 'scanner') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10">Pump.fun scanner + AI filter coming in Phase 2</p>';
-  else if (tab === 'chat') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10">Multi-AI consensus chat coming soon</p>';
-  else if (tab === 'bundle') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10">Jito bundling engine coming soon</p>';
+  else if (tab === 'scanner') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10 mono">🔍 Pump.fun scanner + AI filter coming in Phase 2</p>';
+  else if (tab === 'chat') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10 mono">💬 Multi-AI consensus chat coming soon</p>';
+  else if (tab === 'bundle') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10 mono">⚡ Jito bundling engine coming soon</p>';
 }
 
 async function loadWalletsTab() {
   let html = `
     <button id="new-wallet-btn" class="btn-primary w-full mb-6 text-lg">Generate New Wallet</button>
-    <p class="text-sm text-gray-400 mb-4 text-center">Your wallets (private keys stay in your browser)</p>
+    <p class="text-sm text-gray-400 mb-4 text-center mono">Your wallets (private keys stay in your browser)</p>
     <div class="space-y-4">`;
 
   if (myWallets.length === 0) {
-    html += `<p class="text-center text-gray-500">No wallets yet. Click above to create one.</p>`;
+    html += `<p class="text-center text-gray-500 mono">No wallets yet. Click above to create one.</p>`;
   } else {
     for (const [i, w] of myWallets.entries()) {
       try {
@@ -163,47 +186,52 @@ async function loadWalletsTab() {
             <div class="text-xs font-mono text-gray-400">Wallet ${i+1}</div>
             <div class="font-mono break-all text-sm mb-2">${w.pubkey}</div>
             <div class="text-2xl crypto glow mb-2" style="color:#14F195">${balance.toFixed(4)} SOL</div>
-            <button onclick="copyPriv(${i})" class="text-xs text-cyan-400 hover:underline">Copy Private Key</button>
-            <button onclick="removeWallet(${i})" class="text-xs text-red-400 hover:underline ml-4">Remove</button>
+            <button onclick="window.copyPriv(${i})" class="text-xs text-cyan-400 hover:underline">Copy Private Key</button>
+            <button onclick="window.removeWallet(${i})" class="text-xs text-red-400 hover:underline ml-4">Remove</button>
           </div>`;
       } catch (e) {
-        html += `<div class="glass rounded-xl p-4 border border-red-500/50 text-red-400">Invalid wallet</div>`;
+        html += `<div class="glass rounded-xl p-4 border border-red-500/50 text-red-400 mono">Invalid wallet data</div>`;
       }
     }
   }
   html += `</div>`;
   document.getElementById('agent-content').innerHTML = html;
 
-  // New wallet button
-  document.getElementById('new-wallet-btn')?.addEventListener('click', () => {
-    const wallet = Keypair.generate();
-    const priv = bs58.encode(wallet.secretKey);
-    const pub = wallet.publicKey.toBase58();
+  document.getElementById('new-wallet-btn')?.addEventListener('click', async () => {
+    try {
+      const wallet = Keypair.generate();
+      const priv = bs58.encode(wallet.secretKey);
+      const pub = wallet.publicKey.toBase58();
 
-    myWallets.push({ pubkey: pub, privateKey: priv });
-    localStorage.setItem('aware_wallets', JSON.stringify(myWallets));
+      myWallets.push({ pubkey: pub, privateKey: priv });
+      localStorage.setItem('aware_wallets', JSON.stringify(myWallets));
 
-    alert(`Wallet created!\n${pub}\nPrivate key copied to clipboard (save it!)`);
-    navigator.clipboard.writeText(priv);
-    loadWalletsTab();
+      alert(`Wallet created!\n${pub}\n\nPrivate key copied to clipboard - SAVE IT SECURELY!`);
+      await navigator.clipboard.writeText(priv);
+      loadWalletsTab();
+    } catch (e) {
+      alert('Error creating wallet: ' + e.message);
+    }
   });
 }
 
-window.copyPriv = (i) => {
-  navigator.clipboard.writeText(myWallets[i].privateKey);
-  alert('Private key copied!');
-};
-
-window.removeWallet = (i) => {
-  if (confirm('Delete this wallet forever?')) {
-    myWallets.splice(i, 1);
-    localStorage.setItem('aware_wallets', JSON.stringify(myWallets));
-    loadWalletsTab();
+window.copyPriv = async (i) => {
+  try {
+    await navigator.clipboard.writeText(myWallets[i].privateKey);
+    alert('Private key copied to clipboard!');
+  } catch (e) {
+    alert('Failed to copy: ' + e.message);
   }
 };
 
-// Auto-open on first visit (optional)
-// loadTab('wallets');
+window.removeWallet = (i) => {
+  if (confirm('Delete this wallet forever? This cannot be undone!')) {
+    myWallets.splice(i, 1);
+    localStorage.setItem('aware_wallets', JSON.stringify(myWallets));
+    loadTab('wallets');
+  }
+};
 </script>
+
 </body>
 </html>
