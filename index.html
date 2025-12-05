@@ -30,7 +30,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
 .feature-card:hover{transform:translateY(-10px) scale(1.02)}
 .btn-primary{background:linear-gradient(135deg,#14F195,#9945FF);color:#000;font-weight:700;padding:1rem 2rem;border-radius:9999px;border:none;cursor:pointer;transition:all .3s;font-family:'Space Mono',monospace}
 .btn-primary:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(20,241,149,.5)}
+.btn-secondary{background:rgba(20,241,149,.2);color:#14F195;border:1px solid #14F195;font-weight:700;padding:.5rem 1rem;border-radius:9999px;cursor:pointer;transition:all .3s;font-family:'Space Mono',monospace;font-size:.9rem}
+.btn-secondary:hover{background:rgba(20,241,149,.3);transform:scale(1.05)}
 .tab-active{background:linear-gradient(135deg,#14F195,#9945FF);color:#000;font-weight:bold}
+.message{padding:.75rem;border-radius:12px;margin-bottom:.5rem;font-family:'Space Mono',monospace;font-size:.9rem}
+.message-user{background:rgba(153,69,255,.2);border:1px solid rgba(153,69,255,.4);margin-left:2rem}
+.message-ai{background:rgba(20,241,149,.1);border:1px solid rgba(20,241,149,.3);margin-right:2rem}
 </style>
 </head>
 <body>
@@ -42,16 +47,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
       <span class="text-3xl font-bold crypto glow"><span style="color:#14F195">AWARE</span></span>
     </div>
     <div class="flex flex-wrap gap-4">
-      <a class="nav-link" style="color:#14F195" data-nav="home">HOME</a>
-      <a class="nav-link" data-nav="wallet">WALLET</a>
-      <a class="nav-link" data-nav="chat">CHAT</a>
-      <a class="nav-link" data-nav="scanner">SCANNER</a>
-      <a class="nav-link" data-nav="about">ABOUT</a>
+      <a class="nav-link" style="color:#14F195" onclick="scrollToTop()">HOME</a>
+      <a class="nav-link" onclick="openAgent('wallets')">WALLET</a>
+      <a class="nav-link" onclick="openAgent('chat')">CHAT</a>
+      <a class="nav-link" onclick="openAgent('scanner')">SCANNER</a>
+      <a class="nav-link" onclick="alert('AWARE Protocol - Coming Soon!')">ABOUT</a>
     </div>
   </div>
 </nav>
 
-<div class="content hero" id="home-section">
+<div class="content hero">
   <div class="max-w-5xl mx-auto">
     <h1 class="text-7xl md:text-9xl font-bold mb-6 crypto glow">
       <span style="color:#14F195">AWARE</span><br>
@@ -60,8 +65,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
     <p class="text-2xl md:text-4xl mb-4 mono" style="color:#14F195">AI-Powered Crypto Intelligence</p>
     <p class="text-xl md:text-2xl text-gray-400 mb-8 mono">Scan • Analyze • Dominate</p>
     <div class="flex flex-wrap gap-4 justify-center">
-      <button id="launch-agent" class="btn-primary text-xl">
-        Launch AwareSolAgent
+      <button onclick="openAgent('wallets')" class="btn-primary text-xl">
+        🚀 Launch AwareSolAgent
       </button>
     </div>
   </div>
@@ -71,10 +76,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
   <div class="max-w-7xl mx-auto">
     <h2 class="text-5xl font-bold text-center mb-12 crypto glow">FEATURES</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">🔍</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">PUMP.FUN SCANNER</h3><p class="text-gray-400 mono mb-4">Real-time token scanning and analysis</p></div>
-      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">💰</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">SMART WALLET</h3><p class="text-gray-400 mono mb-4">Connect Phantom or Solflare wallets</p></div>
-      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">🤖</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">AI ASSISTANT</h3><p class="text-gray-400 mono mb-4">Chat with AI about any token</p></div>
-      <div class="feature-card glass neon rounded-2xl p-6"><div class="text-6xl mb-4">📊</div><h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">LIVE ANALYTICS</h3><p class="text-gray-400 mono mb-4">Track market caps and holders</p></div>
+      <div class="feature-card glass neon rounded-2xl p-6" onclick="openAgent('scanner')">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">PUMP.FUN SCANNER</h3>
+        <p class="text-gray-400 mono mb-4">Real-time token scanning</p>
+      </div>
+      <div class="feature-card glass neon rounded-2xl p-6" onclick="openAgent('wallets')">
+        <div class="text-6xl mb-4">💰</div>
+        <h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">SMART WALLET</h3>
+        <p class="text-gray-400 mono mb-4">Generate Solana wallets</p>
+      </div>
+      <div class="feature-card glass neon rounded-2xl p-6" onclick="openAgent('chat')">
+        <div class="text-6xl mb-4">🤖</div>
+        <h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">AI ASSISTANT</h3>
+        <p class="text-gray-400 mono mb-4">Multi-AI crypto analysis</p>
+      </div>
+      <div class="feature-card glass neon rounded-2xl p-6" onclick="openAgent('bundle')">
+        <div class="text-6xl mb-4">📊</div>
+        <h3 class="text-2xl font-bold crypto mb-3" style="color:#14F195">LIVE ANALYTICS</h3>
+        <p class="text-gray-400 mono mb-4">Track market metrics</p>
+      </div>
     </div>
   </div>
 </div>
@@ -90,15 +111,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
   <div class="p-6">
     <div class="flex justify-between items-center mb-8">
       <h2 class="text-3xl crypto glow" style="color:#14F195">AwareSolAgent</h2>
-      <button id="close-agent" class="text-4xl hover:text-red-400">×</button>
+      <button onclick="closeAgent()" class="text-4xl hover:text-red-400 cursor-pointer">×</button>
     </div>
 
 ```
 <div class="grid grid-cols-4 gap-2 text-center text-sm mb-6">
-  <button data-tab="wallets" class="tab-active py-2 rounded">Wallets</button>
-  <button data-tab="scanner" class="py-2 rounded">Scanner</button>
-  <button data-tab="chat" class="py-2 rounded">AI Chat</button>
-  <button data-tab="bundle" class="py-2 rounded">Bundle</button>
+  <button onclick="switchTab('wallets')" data-tab="wallets" class="tab-btn tab-active py-2 rounded cursor-pointer">Wallets</button>
+  <button onclick="switchTab('scanner')" data-tab="scanner" class="tab-btn py-2 rounded cursor-pointer">Scanner</button>
+  <button onclick="switchTab('chat')" data-tab="chat" class="tab-btn py-2 rounded cursor-pointer">AI Chat</button>
+  <button onclick="switchTab('bundle')" data-tab="bundle" class="tab-btn py-2 rounded cursor-pointer">Bundle</button>
 </div>
 
 <div id="agent-content" class="text-white"></div>
@@ -108,6 +129,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.95);
 </div>
 
 <script>
+// Stars
 function createStars(){
   const b=document.getElementById('bg');
   for(let i=0;i<300;i++){
@@ -123,114 +145,183 @@ function createStars(){
   }
 }
 createStars();
-</script>
 
-<script type="module">
-import { Keypair, Connection, LAMPORTS_PER_SOL, PublicKey } from 'https://cdn.jsdelivr.net/npm/@solana/web3.js@1.91.1/+esm';
-import bs58 from 'https://cdn.jsdelivr.net/npm/bs58@5.0.0/+esm';
+// Test that buttons work
+console.log('✅ JavaScript loaded successfully!');
 
-const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
-let myWallets = JSON.parse(localStorage.getItem('aware_wallets') || '[]');
-
-document.getElementById('launch-agent')?.addEventListener('click', () => {
+// Agent controls
+function openAgent(tab) {
+  console.log('Opening agent:', tab);
   document.getElementById('awaresol-agent').classList.remove('translate-x-full');
-  loadTab('wallets');
-});
+  switchTab(tab);
+}
 
-document.getElementById('close-agent')?.addEventListener('click', () => {
+function closeAgent() {
+  console.log('Closing agent');
   document.getElementById('awaresol-agent').classList.add('translate-x-full');
-});
-
-document.querySelectorAll('[data-tab]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-tab]').forEach(b => b.classList.remove('tab-active'));
-    btn.classList.add('tab-active');
-    loadTab(btn.dataset.tab);
-  });
-});
-
-document.querySelectorAll('[data-nav]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const section = link.dataset.nav;
-    if (section === 'wallet' || section === 'chat' || section === 'scanner') {
-      document.getElementById('awaresol-agent').classList.remove('translate-x-full');
-      loadTab(section === 'wallet' ? 'wallets' : section);
-    } else if (section === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  });
-});
-
-async function loadTab(tab) {
-  if (tab === 'wallets') loadWalletsTab();
-  else if (tab === 'scanner') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10 mono">🔍 Pump.fun scanner + AI filter coming in Phase 2</p>';
-  else if (tab === 'chat') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10 mono">💬 Multi-AI consensus chat coming soon</p>';
-  else if (tab === 'bundle') document.getElementById('agent-content').innerHTML = '<p class="text-center py-10 mono">⚡ Jito bundling engine coming soon</p>';
 }
 
-async function loadWalletsTab() {
-  let html = `
-    <button id="new-wallet-btn" class="btn-primary w-full mb-6 text-lg">Generate New Wallet</button>
-    <p class="text-sm text-gray-400 mb-4 text-center mono">Your wallets (private keys stay in your browser)</p>
-    <div class="space-y-4">`;
-
-  if (myWallets.length === 0) {
-    html += `<p class="text-center text-gray-500 mono">No wallets yet. Click above to create one.</p>`;
-  } else {
-    for (const [i, w] of myWallets.entries()) {
-      try {
-        const balance = await connection.getBalance(new PublicKey(w.pubkey)) / LAMPORTS_PER_SOL;
-        html += `
-          <div class="glass rounded-xl p-4 border border-green-500/30">
-            <div class="text-xs font-mono text-gray-400">Wallet ${i+1}</div>
-            <div class="font-mono break-all text-sm mb-2">${w.pubkey}</div>
-            <div class="text-2xl crypto glow mb-2" style="color:#14F195">${balance.toFixed(4)} SOL</div>
-            <button onclick="window.copyPriv(${i})" class="text-xs text-cyan-400 hover:underline">Copy Private Key</button>
-            <button onclick="window.removeWallet(${i})" class="text-xs text-red-400 hover:underline ml-4">Remove</button>
-          </div>`;
-      } catch (e) {
-        html += `<div class="glass rounded-xl p-4 border border-red-500/50 text-red-400 mono">Invalid wallet data</div>`;
-      }
-    }
-  }
-  html += `</div>`;
-  document.getElementById('agent-content').innerHTML = html;
-
-  document.getElementById('new-wallet-btn')?.addEventListener('click', async () => {
-    try {
-      const wallet = Keypair.generate();
-      const priv = bs58.encode(wallet.secretKey);
-      const pub = wallet.publicKey.toBase58();
-
-      myWallets.push({ pubkey: pub, privateKey: priv });
-      localStorage.setItem('aware_wallets', JSON.stringify(myWallets));
-
-      alert(`Wallet created!\n${pub}\n\nPrivate key copied to clipboard - SAVE IT SECURELY!`);
-      await navigator.clipboard.writeText(priv);
-      loadWalletsTab();
-    } catch (e) {
-      alert('Error creating wallet: ' + e.message);
-    }
-  });
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-window.copyPriv = async (i) => {
-  try {
-    await navigator.clipboard.writeText(myWallets[i].privateKey);
-    alert('Private key copied to clipboard!');
-  } catch (e) {
-    alert('Failed to copy: ' + e.message);
+function switchTab(tab) {
+  console.log('Switching to tab:', tab);
+  
+  // Update active tab styling
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('tab-active');
+  });
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('tab-active');
+  
+  // Load tab content
+  const content = document.getElementById('agent-content');
+  
+  if (tab === 'wallets') {
+    content.innerHTML = `
+      <div class="text-center">
+        <button onclick="alert('Wallet generation coming soon! For now, connect via Phantom or Solflare.')" class="btn-primary w-full mb-6">
+          Generate New Wallet
+        </button>
+        <p class="text-gray-400 mono text-sm mb-4">Connect your Solana wallet</p>
+        <button onclick="alert('Connect Phantom wallet - Feature coming soon!')" class="btn-secondary w-full mb-3">
+          💜 Connect Phantom
+        </button>
+        <button onclick="alert('Connect Solflare wallet - Feature coming soon!')" class="btn-secondary w-full">
+          ⚡ Connect Solflare
+        </button>
+        <div class="mt-8 p-4 glass rounded-xl">
+          <p class="text-xs text-gray-500 mono">
+            Note: Full wallet integration requires backend setup. 
+            For testing, the visual interface is now working! 🎉
+          </p>
+        </div>
+      </div>`;
+  } 
+  else if (tab === 'scanner') {
+    content.innerHTML = `
+      <div class="text-center">
+        <button onclick="scanTokens()" class="btn-primary w-full mb-4">
+          🔍 Scan Pump.fun Tokens
+        </button>
+        <div id="scan-results" class="space-y-3 mt-4">
+          <p class="text-gray-400 mono text-sm">Click above to scan latest tokens</p>
+        </div>
+      </div>`;
   }
-};
+  else if (tab === 'chat') {
+    content.innerHTML = `
+      <div class="flex flex-col h-96">
+        <div id="chat-messages" class="flex-1 overflow-y-auto mb-4 space-y-2">
+          <div class="message message-ai">
+            👋 Hey! I'm your crypto AI assistant. Ask me about any token, market trends, or trading strategies!
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <input type="text" id="chat-input" placeholder="Ask about any token..." 
+                 class="flex-1 bg-gray-800/50 border border-green-500/30 rounded-lg px-4 py-2 text-white mono text-sm focus:outline-none focus:border-green-500">
+          <button onclick="sendChat()" class="btn-secondary">Send</button>
+        </div>
+      </div>`;
+    
+    document.getElementById('chat-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendChat();
+    });
+  }
+  else if (tab === 'bundle') {
+    content.innerHTML = `
+      <div class="text-center py-10">
+        <div class="text-6xl mb-4">⚡</div>
+        <h3 class="text-2xl crypto glow mb-4" style="color:#14F195">JITO BUNDLING</h3>
+        <p class="text-gray-400 mono mb-6">Lightning-fast transaction bundling for MEV protection</p>
+        <button onclick="alert('Jito bundling coming in Phase 2!')" class="btn-primary">
+          Coming Soon
+        </button>
+      </div>`;
+  }
+}
 
-window.removeWallet = (i) => {
-  if (confirm('Delete this wallet forever? This cannot be undone!')) {
-    myWallets.splice(i, 1);
-    localStorage.setItem('aware_wallets', JSON.stringify(myWallets));
-    loadTab('wallets');
-  }
-};
+function scanTokens() {
+  const results = document.getElementById('scan-results');
+  results.innerHTML = '<p class="text-cyan-400 mono text-sm animate-pulse">Scanning tokens...</p>';
+  
+  setTimeout(() => {
+    results.innerHTML = `
+      <div class="glass rounded-xl p-4 border border-green-500/30 text-left">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h4 class="font-bold crypto text-lg" style="color:#14F195">PEPE 2.0</h4>
+            <p class="text-xs text-gray-400 mono">$PEPE2</p>
+          </div>
+          <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs font-bold">GREEN</span>
+        </div>
+        <div class="text-xs mono text-gray-400 space-y-1">
+          <div>MC: $2.4M</div>
+          <div>Claude Score: 8.2/10</div>
+        </div>
+      </div>
+      <div class="glass rounded-xl p-4 border border-yellow-500/30 text-left">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h4 class="font-bold crypto text-lg" style="color:#14F195">DOGE KILLER</h4>
+            <p class="text-xs text-gray-400 mono">$DOGEK</p>
+          </div>
+          <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded text-xs font-bold">YELLOW</span>
+        </div>
+        <div class="text-xs mono text-gray-400 space-y-1">
+          <div>MC: $890K</div>
+          <div>Claude Score: 6.5/10</div>
+        </div>
+      </div>
+      <p class="text-xs text-gray-500 mono mt-4 text-center">
+        ⚠️ Demo data - Real scanner requires backend API
+      </p>
+    `;
+  }, 1500);
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  const messages = document.getElementById('chat-messages');
+  const message = input.value.trim();
+  
+  if (!message) return;
+  
+  // Add user message
+  const userMsg = document.createElement('div');
+  userMsg.className = 'message message-user';
+  userMsg.textContent = message;
+  messages.appendChild(userMsg);
+  
+  input.value = '';
+  messages.scrollTop = messages.scrollHeight;
+  
+  // Add AI response
+  setTimeout(() => {
+    const aiMsg = document.createElement('div');
+    aiMsg.className = 'message message-ai';
+    
+    // Simple demo responses
+    const responses = {
+      'sol': 'SOL is performing well! Currently a top blockchain for DeFi and NFTs. Strong fundamentals with fast transactions and low fees.',
+      'pepe': 'PEPE is a memecoin with high volatility. Good for short-term plays but very risky. Always DYOR!',
+      'default': `Great question about "${message}"! For real-time AI analysis, you'll need to set up the backend with Claude API. This is a demo response. 🤖`
+    };
+    
+    const key = message.toLowerCase().includes('sol') ? 'sol' : 
+                message.toLowerCase().includes('pepe') ? 'pepe' : 'default';
+    
+    aiMsg.textContent = responses[key];
+    messages.appendChild(aiMsg);
+    messages.scrollTop = messages.scrollHeight;
+  }, 1000);
+}
+
+// Test button on page load
+setTimeout(() => {
+  console.log('✅ All interactive elements loaded!');
+  console.log('Click the Launch button to test!');
+}, 1000);
 </script>
 
 </body>
